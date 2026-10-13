@@ -72,6 +72,17 @@ Osobny profil dla akwarium — tania alternatywa dla sterowników oświetlenia z
 - AP działa **nieblokująco**: cykl dnia i LED pracują dalej podczas konfiguracji.
 - Wspólne hasło AP dla wszystkich egzemplarzy (AP służy wyłącznie do podania sieci domowej).
 
+## Czujniki — kanały DATA1 / DATA2
+Każdy kanał konfigurowany **niezależnie** od drugiego i od profilu Terra/Aqua: **DHT22 / DS18B20 / brak**. Profil ustawia tylko wartość domyślną.
+
+| Zastosowanie | DATA1 | DATA2 |
+|---|---|---|
+| Terrarium, formikarium (domyślnie Terra) | DHT22 — strefa ciepła | DHT22 — strefa chłodna |
+| Paludarium | DHT22 — powietrze | DS18B20 — woda |
+| Akwarium (domyślnie Aqua) | DS18B20 (jedna lub kilka sond) | brak / DS18B20 |
+
+Na kanale DS18B20 może pracować kilka sond (unikalne adresy 1-Wire); DHT22 zawsze jeden na kanał i nie dzieli linii z DS18B20. Każdy czujnik ma w panelu własną nazwę (np. „woda”, „strefa ciepła”).
+
 ## Sensor MINI (2 × DHT22)
 - Odczyt przez sprzętowy odbiornik RMT ESP32-C3 zamiast programowego odmierzania czasu — przerwania Wi-Fi na jednordzeniowym C3 nie psują odczytu.
 - Retry, odstęp min. 2 s na czujnik, znacznik błędu / braku czujnika / złej sumy kontrolnej; nieaktualne dane nigdy nie są pokazywane jako bieżące.

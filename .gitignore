@@ -1,0 +1,12 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+
+# PlatformIO (firmware/ has its own .gitignore too)
+.pio/
+
+# Python
+__pycache__/
+*.pyc

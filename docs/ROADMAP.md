@@ -4,7 +4,7 @@
 - ESP32-C3 SuperMini, zasilacz 5 V / 2 A.
 - LED OUT 3-pin, SENSOR 6-pin, 2 × DHT22 na przewodach.
 - Brak przekaźnika na PCB podstawowym.
-- Konwerter poziomów DATA LED opcjonalnie.
+- Konwerter poziomów DATA LED **obowiązkowo**: na etapie prototypu przewlekany 74HCT125 DIP-14 (alternatywnie sprawdzony gotowy moduł 74AHCT125/74HCT125).
 - Schemat KiCad i PCB dopiero po zweryfikowaniu pinoutu konkretnej płytki, złączy, prądu i próbek.
 
 ## Sonda DS18B20 — woda (Aqua) i miejsce wygrzewania (Terra)

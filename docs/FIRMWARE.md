@@ -16,7 +16,7 @@ Liczba LED, typ układu (WS2812B / WS2811), kolejność kolorów (domyślnie **R
 - **Ręcznie:** wł./wył.
 - **Harmonogram:**
   - stałe godziny,
-  - astronomiczny — rzeczywisty wschód i zachód dla **lokalizacji biotopu** (szerokość i długość geograficzna, niezależne od miejsca instalacji; strefa czasowa pozostaje domowa). Open-Meteo albo lokalne wyliczenie (działa bez internetu),
+  - astronomiczny — rzeczywisty wschód i zachód dla **lokalizacji biotopu** (szerokość i długość geograficzna, niezależne od miejsca instalacji; strefa czasowa pozostaje domowa). wyliczane **lokalnie** (bez internetu, dokładność ±1–2 min),
   - długość świtu i zmierzchu, przesunięcie względem słońca, minimalna i maksymalna długość dnia.
 - **Sezonowość / zimowanie:** płynne skracanie dnia i obniżanie jasności w wybranym okresie (europejskie mrówki, część agam). W trybie astronomicznym zmiana pór roku wynika z lokalizacji biotopu.
 
@@ -60,6 +60,24 @@ Osobny profil dla akwarium — tania alternatywa dla sterowników oświetlenia z
 - **Łagodny start:** po starcie lub zaniku zasilania światło dochodzi do bieżącej fazy w ok. 1 min — nigdy nagłe pełne światło.
 - Wszystkie przejścia między trybami i scenami płynne.
 
+## Biotopy i zaprogramowana pogoda
+Biotop (pustynia, step, dżungla, las umiarkowany, paludarium, Amazonka, Malawi, rafa…) to preset: paleta barw, sceny i **własny, zaprogramowany „klimat”** — bez danych pogodowych z internetu.
+- Każdy biotop ma prawdopodobieństwa zdarzeń: zachmurzenie, przelotny deszcz, burza (tylko jeśli włączona), dni pochmurne / słoneczne; oraz ich długość i częstotliwość.
+- **Randomizacja** z ziarnem zależnym od daty: każdy dzień inny, ale ten sam dzień w podglądzie / demo wygląda tak samo.
+- Ograniczenia dobrostanu: brak burz w nocy i podczas świtu, limit zdarzeń na dobę, płynne przejścia, możliwość wyłączenia losowości.
+- Pomysł na później (opcjonalnie): pogoda „na żywo” z lokalizacji biotopu przez Open-Meteo.
+
+## Internet — czego potrzebujemy
+- **NTP** (`pool.ntp.org`) — czas. Jedyna zależność istotna dla działania; bez sieci czas ustawiany z telefonu.
+- **GitHub Releases API** — OTA (sprawdzanie raz na dobę; limit 60 zapytań/h bez klucza). Repo / release'y publiczne.
+- Wschód, zachód i fazy księżyca liczone lokalnie; strefy czasowe z wbudowanej listy reguł POSIX. **Bez Open-Meteo** w wersji podstawowej.
+
+## Wybór lokalizacji biotopu
+- **Mapa** (Leaflet + kafelki OpenStreetMap, jak w WeatherLight): klik lub przeciągnięcie znacznika; opcjonalnie wyszukiwarka miejsc (Open-Meteo Geocoding). Mapa ładowana **przez przeglądarkę telefonu** z internetu — działa, gdy telefon ma dostęp do sieci.
+- Zawsze dostępne ręczne pola szerokość / długość geograficzna oraz lista gotowych lokalizacji biotopów — gdy mapa się nie wczyta (tryb AP, brak internetu).
+- Geolokalizacja GPS telefonu niedostępna (przeglądarka wymaga HTTPS, panel działa po HTTP).
+- Zasada: **podstawowy panel nie korzysta z CDN** — wszystkie skrypty i style wbudowane w firmware; zasoby z internetu tylko dla funkcji opcjonalnych (mapa) z działającą alternatywą.
+
 ## Czas i praca bez Wi-Fi
 - NTP, gdy jest sieć; strefa czasowa jako reguła POSIX przez `configTzTime()` (domyślnie `CET-1CEST,M3.5.0,M10.5.0/3`), wybór strefy w panelu.
 - Ustawienie czasu z telefonu/przeglądarki w panelu.
@@ -90,7 +108,7 @@ Na kanale DS18B20 może pracować kilka sond (unikalne adresy 1-Wire); DHT22 zaw
 - Panel: bieżące odczyty, wykres 24 h, progi alarmowe (za ciepło / za sucho) z ostrzeżeniem. Bez sterowania urządzeniami wykonawczymi — to rola Sensor PRO.
 
 ## Z WeatherLight
-- **Bierzemy:** OTA z GitHuba, captive portal (poprawiony), ustawienia w NVS, szkielet panelu WWW z REST, wyliczanie słońca, `timer_mode`, tłumaczenia PL/EN, z silnika efektów — tylko chmury (i błyski burzy).
+- **Bierzemy:** OTA z GitHuba, captive portal (poprawiony), ustawienia w NVS, szkielet panelu WWW z REST, wyliczanie słońca, wybór lokalizacji na mapie, `timer_mode`, tłumaczenia PL/EN, z silnika efektów — tylko chmury (i błyski burzy).
 - **Nie bierzemy:** efekty od rzeczywistej pogody, efekty świąteczne, dashboard, status bar, tryb nocny z PIR.
 
 ## Uwagi

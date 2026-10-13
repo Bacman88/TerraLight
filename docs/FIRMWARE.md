@@ -4,6 +4,10 @@ Status: zbiór decyzji przed pisaniem kodu. Pełna specyfikacja modułów i API 
 
 Baza kodu: TerraLight v1.0.0 (scheduler, renderer słońca, geometria procentowa) + wybrane komponenty WeatherLight v6.3.0.
 
+## Środowisko
+- **Arduino IDE** (jak WeatherLight), płyta ESP32-C3, opcja *USB CDC On Boot: Enabled* (port szeregowy przez natywne USB SuperMini). Struktura plików przygotowana tak, by później łatwo przejść na PlatformIO.
+- Przed wydaniem kod kompilowany kontrolnie przez `arduino-cli` z tymi samymi ustawieniami płyty.
+
 ## Struktura trybów
 Jedno ustawienie bazowe (moduł) i trzy niezależne warstwy: **sterowanie** (kiedy), **światło dzienne** (co), **noc** (po zmierzchu). Na wierzchu — **nadpisania chwilowe** (obserwacja, demo).
 

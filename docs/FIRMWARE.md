@@ -65,12 +65,19 @@ Biotop (pustynia, step, dżungla, las umiarkowany, paludarium, Amazonka, Malawi,
 - Każdy biotop ma prawdopodobieństwa zdarzeń: zachmurzenie, przelotny deszcz, burza (tylko jeśli włączona), dni pochmurne / słoneczne; oraz ich długość i częstotliwość.
 - **Randomizacja** z ziarnem zależnym od daty: każdy dzień inny, ale ten sam dzień w podglądzie / demo wygląda tak samo.
 - Ograniczenia dobrostanu: brak burz w nocy i podczas świtu, limit zdarzeń na dobę, płynne przejścia, możliwość wyłączenia losowości.
-- Pomysł na później (opcjonalnie): pogoda „na żywo” z lokalizacji biotopu przez Open-Meteo.
+
+**Źródło klimatu** (wybór w biotopie):
+1. **Zaprogramowany** — losowy wg biotopu, bez internetu. **Domyślny.**
+2. **Na żywo — lokalizacja biotopu** — rzeczywista pogoda z Open-Meteo dla współrzędnych biotopu (np. Alice Springs dla agamy, Manaus dla akwarium amazońskiego).
+3. **Na żywo — mój dom** — pogoda z lokalizacji instalacji („pada za oknem — pada nad akwarium”). Przy biotopach pustynnych / słonecznych panel ostrzega, że lokalna pogoda (np. polska jesień) może dawać zbyt mało światła.
+
+Pogoda na żywo przechodzi przez **te same zabezpieczenia** co losowanie: brak burz w nocy i o świcie, minimalna jasność dnia dla biotopu, limit pochmurnych dni pod rząd. Rzeczywista pogoda decyduje *kiedy* — zabezpieczenia decydują *jak mocno*. Zapytanie co 15–30 min; bez internetu automatyczny powrót do klimatu zaprogramowanego.
 
 ## Internet — czego potrzebujemy
 - **NTP** (`pool.ntp.org`) — czas. Jedyna zależność istotna dla działania; bez sieci czas ustawiany z telefonu.
 - **GitHub Releases API** — OTA (sprawdzanie raz na dobę; limit 60 zapytań/h bez klucza). Repo / release'y publiczne.
-- Wschód, zachód i fazy księżyca liczone lokalnie; strefy czasowe z wbudowanej listy reguł POSIX. **Bez Open-Meteo** w wersji podstawowej.
+- Wschód, zachód i fazy księżyca liczone lokalnie; strefy czasowe z wbudowanej listy reguł POSIX.
+- **Open-Meteo** — wyłącznie dla opcjonalnej pogody na żywo (bez klucza API); urządzenie działa w pełni bez niego.
 
 ## Wybór lokalizacji biotopu
 - **Mapa** (Leaflet + kafelki OpenStreetMap, jak w WeatherLight): klik lub przeciągnięcie znacznika; opcjonalnie wyszukiwarka miejsc (Open-Meteo Geocoding). Mapa ładowana **przez przeglądarkę telefonu** z internetu — działa, gdy telefon ma dostęp do sieci.
@@ -108,8 +115,8 @@ Na kanale DS18B20 może pracować kilka sond (unikalne adresy 1-Wire); DHT22 zaw
 - Panel: bieżące odczyty, wykres 24 h, progi alarmowe (za ciepło / za sucho) z ostrzeżeniem. Bez sterowania urządzeniami wykonawczymi — to rola Sensor PRO.
 
 ## Z WeatherLight
-- **Bierzemy:** OTA z GitHuba, captive portal (poprawiony), ustawienia w NVS, szkielet panelu WWW z REST, wyliczanie słońca, wybór lokalizacji na mapie, `timer_mode`, tłumaczenia PL/EN, z silnika efektów — tylko chmury (i błyski burzy).
-- **Nie bierzemy:** efekty od rzeczywistej pogody, efekty świąteczne, dashboard, status bar, tryb nocny z PIR.
+- **Bierzemy:** OTA z GitHuba, captive portal (poprawiony), ustawienia w NVS, szkielet panelu WWW z REST, wyliczanie słońca, wybór lokalizacji na mapie, `weather_api.h` (pogoda na żywo — opcja), `timer_mode`, tłumaczenia PL/EN, z silnika efektów — tylko chmury (i błyski burzy).
+- **Nie bierzemy:** efekty pogodowe WeatherLight 1:1 (pogoda na żywo w TerraLight steruje scenami biotopu przez zabezpieczenia), efekty świąteczne, dashboard, status bar, tryb nocny z PIR.
 
 ## Uwagi
 - RGB z WS2812/WS2811 nie zastępuje oświetlenia dziennego wymaganego gatunkowo, UVB ani lampy do uprawy roślin: cały system ma ok. 10 W, a pojedyncze diody RGB mają niewielką moc i wąskie pasma barw.

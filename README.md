@@ -18,10 +18,11 @@ Modułowy system do terrariów, formikariów i akwariów (tryby **Terra** i **Aq
 - [Sensor MINI — pinout 6-pin i sondy DHT22](docs/SENSOR_MINI.md)
 - [Wymienne moduły LED](docs/LED_MODULES.md)
 - [Firmware v2.0 — ustalenia i znane błędy](docs/FIRMWARE.md)
+- [Architektura firmware](docs/ARCHITECTURE.md)
 - [Roadmap — Sensor PRO, ESP-NOW, Hub](docs/ROADMAP.md)
 
 ## Firmware
-Firmware rozwijany osobno przez właściciela projektu z Claude'em, w oparciu o [WeatherLight](https://github.com/Bacman88/WeatherLight). Zakładane funkcje: świt i zmierzch, cykl dnia, fazy księżyca i chmury, konfiguracja liczby i typu LED, dane pogodowe Open-Meteo (opcjonalnie), dwa pomiary temperatury i wilgotności oraz panel Wi-Fi.
+Projekt w pełni **open source** — kod firmware (PlatformIO, ESP32 Arduino) powstaje w katalogu `firmware/` tego repo, na bazie [WeatherLight](https://github.com/Bacman88/WeatherLight). Tryby Terra i Aqua, sceny dnia i nocy, biotopy z klimatem, tryb obserwacji, czujniki DHT22 / DS18B20, panel Wi-Fi i aktualizacje OTA. Szczegóły: [FIRMWARE.md](docs/FIRMWARE.md), [ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ## Przyszłość
 Osobny **Sensor PRO** z własnym sterownikiem i wyjściami automatyki, połączony z TerraLight przez ESP-NOW (z zachowaniem zgodności kanałów z domowym Wi-Fi). Hub pozostaje opcjonalnym pomysłem.

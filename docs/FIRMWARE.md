@@ -52,7 +52,7 @@ Osobny profil dla akwarium — tania alternatywa dla sterowników oświetlenia z
 
 **Nadpisania chwilowe:** **tryb serwisowy** — pełna biel na czas karmienia / sprzątania, potem automatyczny powrót do harmonogramu. Demo jak w Terra.
 
-**Czujnik:** wodoodporna sonda temperatury **DS18B20 (1-Wire) na AUX1** — odczyt, wykres 24 h, progi alarmowe (za zimno / za ciepło). DHT22 w trybie Aqua nieużywany.
+**Czujnik:** wodoodporna sonda temperatury **DS18B20 (1-Wire)** podłączana w miejsce DHT22 na DATA1 / DATA2 — odczyt, wykres 24 h, progi alarmowe (za zimno / za ciepło). Typ czujnika na kanale wybierany w ustawieniach (DHT22 / DS18B20 / brak). AUX1/AUX2 zostają wolne dla I²C.
 
 **Montaż (do instrukcji):** moduł LED nad pokrywą akwarium, IP67/68, sterownik i zasilacz z dala od wody i skroplin. RGB nie zastępuje lampy dla roślin ani koralowców.
 

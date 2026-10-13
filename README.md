@@ -9,7 +9,7 @@ Modułowy system do terrariów, formikariów i akwariów (tryby **Terra** i **Aq
 - LED: wymienne zestawy WS2812B / WS2811 (RING 8, RING 12, ARC 15–20 i LINE 60).
 - SENSOR: 6-pinowe złącze rozbudowy 3,3 V.
 - Sensor MINI: dwie sondy DHT22/AM2302 na osobnych przewodach, ciepła i chłodna strefa.
-- Tryb Aqua: wodoodporna sonda temperatury DS18B20 na AUX1 (planowana).
+- Tryb Aqua: wodoodporna sonda temperatury DS18B20 w miejsce DHT22 (planowana).
 - Bez przekaźników i bez napięcia sieciowego na podstawowej płytce.
 - Opcjonalny bufor logiczny sygnału DATA LED; wymagane testy przed produkcją.
 

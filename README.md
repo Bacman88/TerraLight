@@ -8,10 +8,10 @@ Modułowy system do terrariów, formikariów i akwariów (tryby **Terra** i **Aq
 - Sterownik: ESP32-C3 SuperMini, Wi-Fi 2,4 GHz, zasilanie **5 V / 2 A**.
 - LED: wymienne zestawy WS2812B / WS2811 (RING 8, RING 12, ARC 15–20 i LINE 60).
 - SENSOR: 6-pinowe złącze rozbudowy 3,3 V.
-- Sensor MINI: dwie sondy DHT22/AM2302 na osobnych przewodach, ciepła i chłodna strefa.
-- Tryb Aqua: wodoodporna sonda temperatury DS18B20 w miejsce DHT22 (planowana).
+- Sensor MINI: dwa niezależne kanały sond, każdy DHT22/AM2302 lub DS18B20; można mieszać typy (np. powietrze i temperatura powierzchni).
+- Tryb Aqua: wodoodporna sonda temperatury DS18B20, również na kanale DATA1/DATA2.
 - Bez przekaźników i bez napięcia sieciowego na podstawowej płytce.
-- Opcjonalny bufor logiczny sygnału DATA LED; wymagane testy przed produkcją.
+- Bufor 74HCT125 na linii DATA LED (3,3 V → 5 V) obowiązkowy w prototypie; wymagane testy przed produkcją.
 
 ## Dokumentacja
 - [Hardware — architektura i budżet zasilania](docs/HARDWARE.md)

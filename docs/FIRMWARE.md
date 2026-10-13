@@ -7,7 +7,9 @@ Baza kodu: TerraLight v1.0.0 (scheduler, renderer słońca, geometria procentowa
 ## Struktura trybów
 Jedno ustawienie bazowe (moduł) i trzy niezależne warstwy: **sterowanie** (kiedy), **światło dzienne** (co), **noc** (po zmierzchu). Na wierzchu — **nadpisania chwilowe** (obserwacja, demo).
 
-### 0. Moduł — ustawiany raz
+### 0. Profil urządzenia i moduł — ustawiane raz
+**Profil: Terra / Aqua.** Wybór na starcie konfiguracji; określa dostępne sceny, presety, domyślne wartości i obsługiwany czujnik. Opisane niżej warstwy 1–4 dotyczą trybu **Terra**; tryb **Aqua** — osobna sekcja.
+
 Liczba LED, typ układu (WS2812B / WS2811), kolejność kolorów (domyślnie **RGB**, do weryfikacji na próbkach), kształt (pierścień / łuk / linia), globalny limit jasności, limiter prądu wg profilu i budżetu zasilacza 5 V / 2 A.
 
 ### 1. Sterowanie — kiedy świeci
@@ -33,6 +35,26 @@ Wyłączone · poświata księżyca (stała) · **rzeczywiste fazy księżyca** 
 ### 4. Nadpisania chwilowe
 - **Tryb obserwacji:** czerwone światło na wybrany czas (np. 15 min), potem automatyczny powrót do harmonogramu. Czerwień nie stresuje mrówek — kluczowe dla formikariów. Oparty o `timer_mode` z WeatherLight.
 - **Demo / podgląd:** cała doba przyspieszona do ok. 2 min — testy i prezentacja.
+
+## Tryb Aqua
+Osobny profil dla akwarium — tania alternatywa dla sterowników oświetlenia za kilkaset złotych. Wspólne z Terra: moduł, sterowanie (ręczne / harmonogram / lokalizacja biotopu / sezonowość), łagodny start, demo, tryb pracy bez Wi-Fi.
+
+**Sceny dzienne**
+- Dzień na całym module oraz wędrujące słońce — jak w Terra.
+- **Refleksy wody (kaustyki)** — falujące rozbłyski jak światło słońca przechodzące przez powierzchnię wody; nakładane na scenę dzienną, z regulacją intensywności i prędkości.
+- **Biotopy (palety + efekty):** Amazonka / czarna woda (przygaszone, bursztynowo-herbaciane), Malawi / Tanganika (jasne, czyste, lekko niebieskie, z refleksami), rafa (dominujący niebieski w stylu aktinicznym — dekoracyjnie).
+
+**Harmonogram**
+- **Sjesta:** przygaszenie światła w środku dnia na ustawiony czas (ograniczanie glonów w akwariach roślinnych).
+- Domyślnie dłuższy świt i zmierzch niż w Terra — ryby nie mają powiek; nagłe zapalenie światła płoszy je i grozi uderzeniem o szybę.
+
+**Noc:** niebieska poświata księżyca, rzeczywiste fazy księżyca, wyłączone.
+
+**Nadpisania chwilowe:** **tryb serwisowy** — pełna biel na czas karmienia / sprzątania, potem automatyczny powrót do harmonogramu. Demo jak w Terra.
+
+**Czujnik:** wodoodporna sonda temperatury **DS18B20 (1-Wire) na AUX1** — odczyt, wykres 24 h, progi alarmowe (za zimno / za ciepło). DHT22 w trybie Aqua nieużywany.
+
+**Montaż (do instrukcji):** moduł LED nad pokrywą akwarium, IP67/68, sterownik i zasilacz z dala od wody i skroplin. RGB nie zastępuje lampy dla roślin ani koralowców.
 
 ## Zachowanie urządzenia
 - **Łagodny start:** po starcie lub zaniku zasilania światło dochodzi do bieżącej fazy w ok. 1 min — nigdy nagłe pełne światło.

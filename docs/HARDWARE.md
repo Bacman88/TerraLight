@@ -20,7 +20,7 @@ Status: projekt koncepcyjny do prototypowania, nie gotowa PCB.
 | 2 | GND | wspólna masa |
 | 3 | DATA1 | sonda DHT22 A |
 | 4 | DATA2 | sonda DHT22 B |
-| 5 | AUX1 | rezerwa / przyszłe SDA |
+| 5 | AUX1 | rezerwa / przyszłe SDA / 1-Wire DS18B20 (Aqua) |
 | 6 | AUX2 | rezerwa / przyszłe SCL |
 
 Proponowane gniazdo: JST-GH 6-pin 1,25 mm z zatrzaskiem. To **logiczny** pinout; fizyczne oznaczenie pinów zweryfikować według konkretnego złącza. Wszystkie GPIO pracują na 3,3 V. Nie dopuszcza się podłączania/odłączania modułów pod napięciem bez dodatkowych testów i ochrony.

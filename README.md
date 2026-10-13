@@ -1,6 +1,6 @@
 # TerraLight
 
-Modułowy system do terrariów i formikariów: symulacja dnia i nocy za pomocą adresowalnych LED oraz opcjonalny **Sensor MINI** z dwiema przewodowymi sondami temperatury i wilgotności.
+Modułowy system do terrariów, formikariów i akwariów (tryby **Terra** i **Aqua**): symulacja dnia i nocy za pomocą adresowalnych LED oraz opcjonalny **Sensor MINI** z dwiema przewodowymi sondami temperatury i wilgotności.
 
 **Status:** dokumentacja sprzętowa v0.1, etap projektowania prototypu. Schemat PCB i firmware nie są jeszcze gotowe.
 
@@ -9,6 +9,7 @@ Modułowy system do terrariów i formikariów: symulacja dnia i nocy za pomocą 
 - LED: wymienne zestawy WS2812B / WS2811 (RING 8, RING 12, ARC 15–20 i LINE 60).
 - SENSOR: 6-pinowe złącze rozbudowy 3,3 V.
 - Sensor MINI: dwie sondy DHT22/AM2302 na osobnych przewodach, ciepła i chłodna strefa.
+- Tryb Aqua: wodoodporna sonda temperatury DS18B20 na AUX1 (planowana).
 - Bez przekaźników i bez napięcia sieciowego na podstawowej płytce.
 - Opcjonalny bufor logiczny sygnału DATA LED; wymagane testy przed produkcją.
 

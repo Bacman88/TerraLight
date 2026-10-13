@@ -14,10 +14,10 @@ Projekt **w pełni open source** — hardware, dokumentacja i kod firmware w jed
 
 ## 2. Środowisko
 - **PlatformIO** w VS Code / VSCodium (konfiguracja środowiska później, gdy będzie wolne okno od WMS).
-- Platforma: ESP32 Arduino core **3.x** (ESP-IDF 5). Uwaga: oficjalna platforma `espressif32` w PlatformIO długo zostawała na core 2.x — do weryfikacji przy konfiguracji; alternatywą jest społecznościowa platforma *pioarduino* z core 3.x.
+- Platforma: **pioarduino** `55.03.312-1` = ESP32 Arduino core **3.3.12** (ESP-IDF 5.5). Oficjalna platforma `espressif32` w PlatformIO zostaje na core 2.x.
 - Płyta: ESP32-C3 SuperMini, 4 MB flash, natywne USB (`ARDUINO_USB_CDC_ON_BOOT=1`).
-- Partycje: dwa sloty aplikacji OTA + NVS + mały LittleFS (historia czujników nie jest zapisywana do flash — patrz 7).
-- Kompilacja kontrolna każdej wersji przed wydaniem (PlatformIO CLI w środowisku Claude'a).
+- Partycje: `min_spiffs.csv` — dwa sloty aplikacji OTA po 1,9 MB + NVS + mały SPIFFS. Domyślny układ (1,25 MB) był zapełniony w 86 % już w M1 (Wi-Fi + HTTP + mDNS ≈ 1 MB). Historia czujników nie jest zapisywana do flash — patrz 7.
+- Kompilacja kontrolna każdej wersji przed wydaniem: `arduino-cli` z tym samym core 3.3.12 (środowisko Claude'a nie ma dostępu do rejestru PlatformIO), docelowo także GitHub Actions z PlatformIO.
 
 ### Biblioteki
 | Biblioteka | Do czego |
@@ -160,5 +160,5 @@ JSON, bez autoryzacji w sieci lokalnej (jak WeatherLight).
 ## 11. Otwarte kwestie
 - Zatwierdzony pinout płytki SuperMini (HARDWARE.md: „do zatwierdzenia”).
 - RTC na AUX1/AUX2 — tak / nie (wpływa na `clock`).
-- Platforma PlatformIO dla core 3.x — weryfikacja przy konfiguracji środowiska.
+- Pierwszy build w PlatformIO u użytkownika — potwierdzenie platformy `55.03.312-1`.
 - Paleta barw i parametry biotopów — dobór na prototypie.

@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>TerraLight</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <span class="logo" aria-hidden="true">◐</span>
+    <div>
+      <h1>TerraLight</h1>
+      <small id="ver">—</small>
+    </div>
+  </div>
+  <div class="pills">
+    <span class="pill" id="pillWifi">Wi-Fi</span>
+    <span class="pill" id="pillTime">--:--</span>
+    <button class="lang" id="langBtn" type="button">EN</button>
+  </div>
+</header>
+
+<main>
+  <!-- Setup (AP mode) -->
+  <section class="card hidden" id="setupCard">
+    <h2 data-i18n="setupTitle">Połącz z domowym Wi-Fi</h2>
+    <p class="muted" data-i18n="setupHint">Wybierz sieć 2,4 GHz i podaj hasło. Światło działa dalej podczas konfiguracji.</p>
+    <div class="wifiForm" id="wifiForm">
+      <div class="row">
+        <select id="ssidSelect"><option value="" data-i18n="scanning">Szukam sieci…</option></select>
+        <button type="button" class="ghost" id="rescanBtn" data-i18n="rescan">Odśwież</button>
+      </div>
+      <input id="ssidManual" placeholder="SSID" data-i18n-ph="ssidManual" autocomplete="off">
+      <input id="wifiPass" type="password" placeholder="Hasło" data-i18n-ph="password" autocomplete="off">
+      <button type="button" id="connectBtn" data-i18n="connect">Połącz</button>
+      <p class="msg" id="wifiMsg"></p>
+    </div>
+  </section>
+
+  <!-- Light -->
+  <section class="card">
+    <div class="cardHead">
+      <h2 data-i18n="light">Światło</h2>
+      <label class="switch"><input type="checkbox" id="lightOn"><span></span></label>
+    </div>
+    <label class="field">
+      <span data-i18n="color">Kolor</span>
+      <input type="color" id="lightColor">
+    </label>
+    <label class="field">
+      <span><span data-i18n="brightness">Jasność</span> <b id="brightVal">—</b></span>
+      <input type="range" id="lightBright" min="0" max="100">
+    </label>
+    <label class="field">
+      <span data-i18n="density">Gęstość</span>
+      <select id="lightDensity">
+        <option value="1" data-i18n="dens1">Wszystkie diody</option>
+        <option value="2" data-i18n="dens2">Co druga</option>
+        <option value="3" data-i18n="dens3">Co trzecia</option>
+        <option value="4" data-i18n="dens4">Co czwarta</option>
+      </select>
+    </label>
+    <p class="meter" id="ledMeter">—</p>
+  </section>
+
+  <!-- Module -->
+  <section class="card">
+    <h2 data-i18n="module">Moduł LED</h2>
+    <div class="grid">
+      <label class="field"><span data-i18n="preset">Zestaw</span>
+        <select id="modPreset">
+          <option value="ring8">RING 8</option>
+          <option value="ring12">RING 12</option>
+          <option value="arc">ARC</option>
+          <option value="line">LINE</option>
+          <option value="custom" data-i18n="custom">Własny</option>
+        </select></label>
+      <label class="field"><span data-i18n="count">Liczba LED</span><input type="number" id="modCount" min="1" max="300"></label>
+      <label class="field"><span data-i18n="chip">Układ</span>
+        <select id="modChip"><option value="ws2812b">WS2812B</option><option value="ws2811">WS2811</option></select></label>
+      <label class="field"><span data-i18n="order">Kolejność kolorów</span>
+        <select id="modOrder">
+          <option value="rgb">RGB</option><option value="grb">GRB</option><option value="brg">BRG</option>
+          <option value="rbg">RBG</option><option value="gbr">GBR</option><option value="bgr">BGR</option>
+        </select></label>
+      <label class="field"><span data-i18n="shape">Kształt</span>
+        <select id="modShape">
+          <option value="ring" data-i18n="ring">Pierścień</option>
+          <option value="arc" data-i18n="arc">Łuk</option>
+          <option value="line" data-i18n="line">Linia</option>
+        </select></label>
+      <label class="field"><span data-i18n="maPx">mA / piksel</span><input type="number" id="modMa" min="1" max="120"></label>
+      <label class="field"><span data-i18n="budget">Budżet prądu LED (mA)</span><input type="number" id="modBudget" min="100" max="10000" step="50"></label>
+    </div>
+    <p class="muted small" data-i18n="orderHint">Jeśli kolory się nie zgadzają (np. zielone zamiast czerwonego), zmień kolejność kolorów.</p>
+    <button type="button" id="modSave" data-i18n="save">Zapisz</button>
+  </section>
+
+  <!-- Time -->
+  <section class="card">
+    <h2 data-i18n="time">Czas</h2>
+    <p class="big" id="timeNow">—</p>
+    <p class="muted small" id="timeSrc">—</p>
+    <label class="field"><span data-i18n="tz">Strefa czasowa</span><select id="tzSelect"></select></label>
+    <button type="button" class="ghost" id="timeFromPhone" data-i18n="timeFromPhone">Ustaw czas z telefonu</button>
+  </section>
+
+  <!-- Wi-Fi (station) -->
+  <section class="card" id="wifiCard">
+    <h2>Wi-Fi</h2>
+    <dl class="kv">
+      <dt data-i18n="network">Sieć</dt><dd id="wSsid">—</dd>
+      <dt data-i18n="address">Adres</dt><dd id="wAddr">—</dd>
+      <dt data-i18n="signal">Sygnał</dt><dd id="wRssi">—</dd>
+    </dl>
+    <details>
+      <summary data-i18n="changeNet">Zmień sieć</summary>
+      <div id="wifiFormStation"></div>
+    </details>
+    <button type="button" class="danger ghost" id="forgetBtn" data-i18n="forget">Zapomnij sieć i włącz tryb konfiguracji</button>
+  </section>
+
+  <!-- System -->
+  <section class="card">
+    <h2 data-i18n="system">System</h2>
+    <div class="grid">
+      <label class="field"><span data-i18n="maxBright">Maks. jasność (%)</span><input type="number" id="outMax" min="1" max="100"></label>
+      <label class="field"><span data-i18n="softStart">Łagodny start (s)</span><input type="number" id="outSoft" min="0" max="600"></label>
+      <label class="field"><span data-i18n="hostname">Nazwa w sieci</span><input id="sysHost" maxlength="31"></label>
+      <label class="field"><span data-i18n="profile">Profil</span>
+        <select id="sysProfile" disabled><option value="terra">Terra</option><option value="aqua">Aqua</option></select></label>
+    </div>
+    <button type="button" id="sysSave" data-i18n="save">Zapisz</button>
+    <div class="row wrap">
+      <button type="button" class="ghost" id="restartBtn" data-i18n="restart">Restart</button>
+      <button type="button" class="ghost danger" id="defaultsBtn" data-i18n="defaults">Ustawienia fabryczne</button>
+    </div>
+    <p class="muted small" id="sysInfo">—</p>
+  </section>
+</main>
+
+<footer>TerraLight · <a href="https://github.com/Bacman88/TerraLight" target="_blank" rel="noopener">GitHub</a> · Smart Ant Technologies</footer>
+<div class="toast" id="toast"></div>
+<script src="app.js"></script>
+</body>
+</html>

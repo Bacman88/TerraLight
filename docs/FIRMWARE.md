@@ -126,7 +126,7 @@ Na kanale DS18B20 może pracować kilka sond (unikalne adresy 1-Wire); DHT22 zaw
 - RGB z WS2812/WS2811 nie zastępuje oświetlenia dziennego wymaganego gatunkowo, UVB ani lampy do uprawy roślin: cały system ma ok. 10 W, a pojedyncze diody RGB mają niewielką moc i wąskie pasma barw.
 
 ## Znane błędy do poprawy (z v1.0.0 / WeatherLight v6.3.0)
-- [ ] **Strefa czasowa:** `configTime(3600, 3600, …)` daje UTC+2 przez cały rok — zimą zegar spieszy się o 1 h. Dotyczy TerraLight v1.0.0 **i WeatherLight v6.3.0**. Poprawka: `configTzTime()` z regułą POSIX.
-- [ ] **Blokujący captive portal:** pętla `while (apMode)` zatrzymuje cykl dnia, LED gasną po 60 s.
-- [ ] Captive portal używa stałej `NUMPIXELS` zamiast skonfigurowanej liczby LED.
-- [ ] Pinout v1 (LED na GPIO2 — pin startowy, przycisk na GPIO5) nieaktualny względem hardware v0.1.
+- [x] **Strefa czasowa:** _(naprawione w v2 M1: `core/clock`)_ `configTime(3600, 3600, …)` daje UTC+2 przez cały rok — zimą zegar spieszy się o 1 h. Dotyczy TerraLight v1.0.0 **i WeatherLight v6.3.0**. Poprawka: `configTzTime()` z regułą POSIX.
+- [x] **Blokujący captive portal:** _(naprawione w v2 M1: `net/wifi_manager`)_ pętla `while (apMode)` zatrzymuje cykl dnia, LED gasną po 60 s.
+- [x] _(naprawione w v2 M1)_ Captive portal używa stałej `NUMPIXELS` zamiast skonfigurowanej liczby LED.
+- [x] _(v2: `core/pins.h` wg HARDWARE.md)_ Pinout v1 (LED na GPIO2 — pin startowy, przycisk na GPIO5) nieaktualny względem hardware v0.1.

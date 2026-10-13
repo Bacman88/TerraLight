@@ -22,7 +22,7 @@ Board not visible as a port → hold BOOT, tap RESET, release BOOT, upload again
 ## Git workflow (several computers: work / home)
 GitHub `Bacman88/TerraLight` is the sync point between machines; author identity is `Bacman <bacmanowski@gmail.com>`.
 - At session start: `git fetch` + `git status`; if behind `origin/main`, pull before editing anything.
-- At the end of a work session: offer to commit and push, so the other machine gets the changes.
+- At the end of a work session: update the **Status** section below (done / next / half-finished), record important decisions in the right `docs/*.md`, then offer to commit and push, so the other machine gets the changes. Claude's chat history and local memory do not travel between machines — only the repo does.
 - New machine: `git clone https://github.com/Bacman88/TerraLight.git` (never a ZIP copy — it has no `.git`).
 - Line endings are LF (`.gitattributes`); don't convert files to CRLF.
 

@@ -7,10 +7,10 @@
 - Konwerter poziomów DATA LED opcjonalnie.
 - Schemat KiCad i PCB dopiero po zweryfikowaniu pinoutu konkretnej płytki, złączy, prądu i próbek.
 
-## Sonda Aqua — DS18B20
+## Sonda DS18B20 — woda (Aqua) i miejsce wygrzewania (Terra)
 - Wodoodporna sonda temperatury DS18B20 (1-Wire) dla trybu Aqua, podłączana **w miejsce DHT22** na DATA1 / DATA2 portu SENSOR (to samo złącze i ten sam rezystor podciągający 4,7 kΩ do 3,3 V). AUX1/AUX2 pozostają wolne dla I²C (np. RTC).
 - Firmware: typ czujnika na każdym kanale wybierany w ustawieniach (DHT22 / DS18B20 / brak). Na jednej linii 1-Wire może pracować kilka sond DS18B20 (unikalne adresy).
-- Do weryfikacji: długość przewodu, jakość uszczelnienia sondy.
+- Do weryfikacji: długość przewodu, jakość uszczelnienia sondy, mocowanie do kamienia / w podłożu, dokładność partii (na rynku dużo podróbek DS18B20 — testować próbki od dostawcy).
 
 ## Firmware — użytkownik + Claude
 Kod będzie bazował na wcześniejszym WeatherLight: https://github.com/Bacman88/WeatherLight. Konfiguracja typu i liczby LED, efekty i harmonogramy, odczyt 2 × DHT22, obsługa błędów i ograniczenia poboru, lokalny panel Wi-Fi. Nie dodajemy firmware automatycznie w tym etapie.

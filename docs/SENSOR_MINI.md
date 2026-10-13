@@ -16,7 +16,7 @@ DHT22 **nie jest I²C**: każdy ma osobny sygnał DATA, więc dwa takie same czu
 Na DATA1 i DATA2 przewidzieć osobne podciąganie do 3,3 V, prototypowo 4,7 kΩ; footprinty konfigurowalne, bo gotowe moduły mogą już mieć własne rezystory. Weryfikować przy długościach i typach przewodów używanych przez klienta.
 
 ## Głowice i środowisko
-Głowice wentylowane na przewodach, umieszczane niezależnie; nie zalewać żywicą części pomiarowej. Unikać bezpośredniego zraszania i kondensacji. DHT22 nie jest sondą zanurzeniową ani czujnikiem temperatury powierzchni miejsca wygrzewania. Firmware musi oznaczać awarie, brak pomiaru i błędne sumy kontrolne; nie używać starych danych jako aktualnych.
+Głowice wentylowane na przewodach, umieszczane niezależnie; nie zalewać żywicą części pomiarowej. Unikać bezpośredniego zraszania i kondensacji. DHT22 nie jest sondą zanurzeniową ani czujnikiem temperatury powierzchni miejsca wygrzewania — do tego służy sonda DS18B20 podłączana w miejsce jednego z DHT22 (patrz FIRMWARE.md, „Czujniki”). Firmware musi oznaczać awarie, brak pomiaru i błędne sumy kontrolne; nie używać starych danych jako aktualnych.
 
 ## Rozbudowa
 Na AUX1/AUX2 możliwe późniejsze SDA/SCL I²C, pod warunkiem doboru czujników z różnymi adresami i odpowiedniego podciągania. Sensor PRO pozostaje niezależnym urządzeniem z ESP32 i komunikacją ESP-NOW.

@@ -78,10 +78,11 @@ Każdy kanał konfigurowany **niezależnie** od drugiego i od profilu Terra/Aqua
 | Zastosowanie | DATA1 | DATA2 |
 |---|---|---|
 | Terrarium, formikarium (domyślnie Terra) | DHT22 — strefa ciepła | DHT22 — strefa chłodna |
+| Terrarium z miejscem wygrzewania (np. agama) | DHT22 — powietrze | DS18B20 — powierzchnia pod lampą (kamień / podłoże) |
 | Paludarium | DHT22 — powietrze | DS18B20 — woda |
 | Akwarium (domyślnie Aqua) | DS18B20 (jedna lub kilka sond) | brak / DS18B20 |
 
-Na kanale DS18B20 może pracować kilka sond (unikalne adresy 1-Wire); DHT22 zawsze jeden na kanał i nie dzieli linii z DS18B20. Każdy czujnik ma w panelu własną nazwę (np. „woda”, „strefa ciepła”).
+Na kanale DS18B20 może pracować kilka sond (unikalne adresy 1-Wire); DHT22 zawsze jeden na kanał i nie dzieli linii z DS18B20. DS18B20 to jeden typ sondy dla dwóch zastosowań: temperatura wody (Aqua) i temperatura powierzchni wygrzewania (Terra) — w wersji wodoodpornej reaguje w powietrzu z opóźnieniem kilku minut, a w promieniach lampy pokazuje temperaturę nagrzanej powierzchni, a nie powietrza. Dla miejsca wygrzewania osobne progi alarmowe (za gorąco = ryzyko poparzenia). Każdy czujnik ma w panelu własną nazwę (np. „woda”, „strefa ciepła”).
 
 ## Sensor MINI (2 × DHT22)
 - Odczyt przez sprzętowy odbiornik RMT ESP32-C3 zamiast programowego odmierzania czasu — przerwania Wi-Fi na jednordzeniowym C3 nie psują odczytu.

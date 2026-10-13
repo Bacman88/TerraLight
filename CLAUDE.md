@@ -19,6 +19,13 @@ Owner: Bartosz / Smart Ant Technologies (GitHub `Bacman88`). Talk to the owner i
 ```
 Board not visible as a port → hold BOOT, tap RESET, release BOOT, upload again.
 
+## Git workflow (several computers: work / home)
+GitHub `Bacman88/TerraLight` is the sync point between machines; author identity is `Bacman <bacmanowski@gmail.com>`.
+- At session start: `git fetch` + `git status`; if behind `origin/main`, pull before editing anything.
+- At the end of a work session: offer to commit and push, so the other machine gets the changes.
+- New machine: `git clone https://github.com/Bacman88/TerraLight.git` (never a ZIP copy — it has no `.git`).
+- Line endings are LF (`.gitattributes`); don't convert files to CRLF.
+
 ## Rules for the firmware
 - ESP32-C3 is single-core: **nothing in `loop()` may block** (no long `delay()`, no `while` waiting for the network). Network fetches go to a separate FreeRTOS task.
 - The light must keep running in every Wi-Fi state, including the setup AP.

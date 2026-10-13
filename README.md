@@ -16,6 +16,7 @@ Modułowy system do terrariów i formikariów: symulacja dnia i nocy za pomocą 
 - [Hardware — architektura i budżet zasilania](docs/HARDWARE.md)
 - [Sensor MINI — pinout 6-pin i sondy DHT22](docs/SENSOR_MINI.md)
 - [Wymienne moduły LED](docs/LED_MODULES.md)
+- [Firmware v2.0 — ustalenia i znane błędy](docs/FIRMWARE.md)
 - [Roadmap — Sensor PRO, ESP-NOW, Hub](docs/ROADMAP.md)
 
 ## Firmware

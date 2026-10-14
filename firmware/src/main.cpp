@@ -14,6 +14,7 @@
 #include "input/status_led.h"
 #include "light/led_output.h"
 #include "light/scenes/scene_static.h"
+#include "net/ota.h"
 #include "net/wifi_manager.h"
 #include "web/server.h"
 
@@ -55,6 +56,7 @@ void setup() {
   Serial.printf("\n%s %s\n", TL_FW_NAME, TL_FW_VERSION);
 
   status_led::begin();
+  ota::begin();
   settings::begin();
   const Settings& s = settings::get();
 
@@ -73,6 +75,7 @@ void loop() {
 
   web::loop();
   wifi::loop(now);
+  ota::loop(now, wifi::connected());
 
   if (now - g_lastInputMs >= INPUT_INTERVAL_MS) {
     g_lastInputMs = now;

@@ -169,6 +169,17 @@
     <p class="muted small" id="sysInfo">—</p>
   </section>
 
+  <!-- Update (OTA from GitHub Releases) -->
+  <section class="card" id="otaCard">
+    <h2 data-i18n="update">Aktualizacja</h2>
+    <p class="msg" id="otaMsg">—</p>
+    <progress class="hidden" id="otaBar" max="100" value="0"></progress>
+    <div class="row wrap">
+      <button type="button" class="ghost" id="otaCheck" data-i18n="otaCheck">Sprawdź aktualizacje</button>
+      <button type="button" class="hidden" id="otaInstall">Zainstaluj</button>
+    </div>
+  </section>
+
   <section class="wizFoot hidden" id="wizFoot">
     <p class="muted small" id="wizHint"></p>
     <div class="row">

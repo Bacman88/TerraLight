@@ -8,6 +8,7 @@
 #include "../core/settings.h"
 #include "../core/version.h"
 #include "../light/led_output.h"
+#include "../net/ota.h"
 #include "../net/wifi_manager.h"
 #include "api_json.h"
 #include "assets.h"
@@ -134,6 +135,13 @@ void handleStatus() {
   w["reason"] = wifi::lastReason();
   w["reasonName"] = wifi::reasonName(wifi::lastReason());
 
+  JsonObject o = doc["ota"].to<JsonObject>();
+  o["state"] = ota::stateName();
+  o["latest"] = ota::latestVersion();
+  o["progress"] = ota::progress();
+  o["error"] = ota::lastError();
+  o["pendingVerify"] = ota::pendingVerify();
+
   const led::Stats ls = led::stats();
   JsonObject l = doc["led"].to<JsonObject>();
   l["count"] = ls.count;
@@ -237,6 +245,22 @@ void handleWifiForget() {
   schedule(Pending::ForgetWifi);
 }
 
+// ── /api/ota ─────────────────────────────────────────────────
+void handleOtaCheck() {
+  if (!wifi::connected()) return sendError(409, "no internet connection");
+  if (!ota::requestCheck()) return sendError(409, "update task busy");
+  JsonDocument out;
+  out["ok"] = true;
+  sendJson(200, out);
+}
+
+void handleOtaUpdate() {
+  if (!ota::requestInstall()) return sendError(409, "no update available or task busy");
+  JsonDocument out;
+  out["ok"] = true;
+  sendJson(200, out);
+}
+
 // ── /api/system ──────────────────────────────────────────────
 void handleRestart() {
   settings::saveNow();
@@ -269,6 +293,8 @@ void begin() {
   g_server.on("/api/wifi/scan", HTTP_GET, handleWifiScan);
   g_server.on("/api/wifi", HTTP_POST, handleWifiPost);
   g_server.on("/api/wifi/forget", HTTP_POST, handleWifiForget);
+  g_server.on("/api/ota/check", HTTP_POST, handleOtaCheck);
+  g_server.on("/api/ota/update", HTTP_POST, handleOtaUpdate);
   g_server.on("/api/system/restart", HTTP_POST, handleRestart);
   g_server.on("/api/system/defaults", HTTP_POST, handleDefaults);
   // Phone / OS connectivity checks → panel while in AP

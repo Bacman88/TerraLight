@@ -11,6 +11,7 @@ Projekt **w pełni open source** — hardware, dokumentacja i kod firmware w jed
 - Kod firmware w katalogu `firmware/`, dokumentacja w `docs/`.
 - **Releases** z gotowymi plikami `.bin` — źródło aktualizacji OTA (`releases/latest`) oraz do wgrania bez kompilacji.
 - Wydanie: tag wersji → build → `.bin` dołączony do release'u (później automatycznie przez GitHub Actions).
+- **OTA bez tokena** (`net/ota`, od `2.0.0-dev.2`): każdy release ma dwa pliki — `firmware.bin` i `manifest.json` (`version`, `tag`, `size`, `sha256`), przygotowane przez `firmware/tools/make_release.py`. Urządzenie czyta `github.com/<repo>/releases/latest/download/manifest.json` (publiczne przekierowanie, bez limitu API), pobiera `releases/download/<tag>/firmware.bin`, sprawdza rozmiar i SHA-256. HTTPS z wbudowanym pakietem CA (certyfikat weryfikowany — WeatherLight używał `setInsecure()`). Sprawdzenie 30 s po połączeniu z Wi-Fi i co 24 h, instalacja przyciskiem w panelu. Nowy obraz jest zatwierdzany po 60 s pracy; reset wcześniej = powrót do poprzedniej wersji (rollback bootloadera). Release **nie może** być oznaczony jako pre-release — `latest` je pomija. Tokena GitHuba nie wbudowujemy w firmware (publiczne `.bin`).
 
 ## 2. Środowisko
 - **PlatformIO** w VS Code / VSCodium (konfiguracja środowiska później, gdy będzie wolne okno od WMS).

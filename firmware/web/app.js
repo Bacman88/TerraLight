@@ -20,6 +20,11 @@ const T = {
     wizEstLimit: 'Pełna biel: ok. {ma} mA — więcej niż zasilacz; jasność zostanie ograniczona automatycznie.',
     ledStepHint: 'Resztę (kolory, jasność, typ diod) ustawisz później w panelu.',
     setupFinished: 'Konfiguracja zakończona',
+    update: 'Aktualizacja', otaCheck: 'Sprawdź aktualizacje', otaInstall: 'Zainstaluj {v}',
+    otaIdle: 'Wersja {cur}', otaChecking: 'Sprawdzam GitHub…', otaUpToDate: 'Wersja {cur} — najnowsza',
+    otaAvailable: 'Dostępna wersja {v} (masz {cur})', otaDownloading: 'Pobieram i wgrywam… {p}% — światło działa dalej',
+    otaDone: 'Wgrano — restart…', otaError: 'Błąd aktualizacji: {e}', otaOffline: 'Aktualizacja wymaga połączenia z internetem',
+    otaVerify: 'Nowa wersja — zostanie zatwierdzona po minucie pracy',
     connect: 'Połącz', light: 'Światło', color: 'Kolor', brightness: 'Jasność', density: 'Gęstość',
     dens1: 'Wszystkie diody', dens2: 'Co druga', dens3: 'Co trzecia', dens4: 'Co czwarta',
     module: 'Moduł LED', preset: 'Zestaw', custom: 'Własny', count: 'Liczba LED', chip: 'Układ',
@@ -57,6 +62,11 @@ const T = {
     wizEstLimit: 'Full white: approx. {ma} mA — more than the supply; brightness will be limited automatically.',
     ledStepHint: 'Everything else (colours, brightness, LED type) can be set later in the panel.',
     setupFinished: 'Setup finished',
+    update: 'Update', otaCheck: 'Check for updates', otaInstall: 'Install {v}',
+    otaIdle: 'Version {cur}', otaChecking: 'Checking GitHub…', otaUpToDate: 'Version {cur} — up to date',
+    otaAvailable: 'Version {v} available (you have {cur})', otaDownloading: 'Downloading and flashing… {p}% — the light keeps running',
+    otaDone: 'Flashed — restarting…', otaError: 'Update error: {e}', otaOffline: 'Updating needs an internet connection',
+    otaVerify: 'New version — confirmed after one minute of running',
     connect: 'Connect', light: 'Light', color: 'Colour', brightness: 'Brightness', density: 'Density',
     dens1: 'Every pixel', dens2: 'Every 2nd', dens3: 'Every 3rd', dens4: 'Every 4th',
     module: 'LED module', preset: 'Preset', custom: 'Custom', count: 'LED count', chip: 'Chip',
@@ -250,7 +260,32 @@ function renderStatus(s) {
   const up = s.uptimeSec;
   const upTxt = up > 86400 ? Math.floor(up / 86400) + ' d ' + Math.floor(up % 86400 / 3600) + ' h' : Math.floor(up / 3600) + ' h ' + Math.floor(up % 3600 / 60) + ' min';
   $('sysInfo').textContent = `${t('uptime')}: ${upTxt} · ${t('heap')}: ${Math.round(s.heapFree / 1024)} kB`;
+  renderOta(s);
   wizRender();
+}
+
+function renderOta(s) {
+  const o = s.ota;
+  const fill = (k) => t(k).replace('{cur}', s.version).replace('{v}', o.latest).replace('{p}', o.progress).replace('{e}', o.error);
+  const online = s.wifi.state === 'connected';
+  const key = { checking: 'otaChecking', upToDate: 'otaUpToDate', available: 'otaAvailable',
+    downloading: 'otaDownloading', done: 'otaDone', error: 'otaError' }[o.state] || 'otaIdle';
+  let txt = fill(key);
+  if (!online && key === 'otaIdle') txt += ' · ' + t('otaOffline');
+  if (o.pendingVerify) txt += ' · ' + t('otaVerify');
+  $('otaMsg').textContent = txt;
+  $('otaMsg').className = 'msg' + (o.state === 'error' ? ' err' : o.state === 'available' || o.state === 'done' ? ' ok' : '');
+  const busy = o.state === 'checking' || o.state === 'downloading' || o.state === 'done';
+  $('otaBar').classList.toggle('hidden', o.state !== 'downloading');
+  $('otaBar').value = o.progress;
+  $('otaCheck').disabled = busy || !online;
+  $('otaInstall').classList.toggle('hidden', o.state !== 'available');
+  $('otaInstall').disabled = busy;
+  $('otaInstall').textContent = fill('otaInstall');
+}
+
+async function otaPost(path) {
+  try { await api(path, {}); pollStatus(); } catch (e) { toast(t('error') + ': ' + e.message); }
 }
 
 // ── First-run wizard (setup AP only): Wi-Fi (skippable) → LEDs + supply ─
@@ -381,6 +416,8 @@ function bind() {
   $('modSave').addEventListener('click', () => saveModule(false));
   $('wizBack').addEventListener('click', () => wizShow(wizStep - 1));
   $('wizNext').addEventListener('click', wizNext);
+  $('otaCheck').addEventListener('click', () => otaPost('/api/ota/check'));
+  $('otaInstall').addEventListener('click', () => otaPost('/api/ota/update'));
   $('wizCount').addEventListener('input', wizEstimate);
   $('wizSupply').addEventListener('change', wizEstimate);
 

@@ -24,6 +24,13 @@ fails with `FileNotFoundError` under `%USERPROFILE%\.platformio` unless long pat
 Fix without admin: set the user env var `PLATFORMIO_CORE_DIR=C:\pio` (no trailing space) and restart
 VS Code; packages then go to `C:\pio` (the `penv` with `pio.exe` may stay in `%USERPROFILE%\.platformio`).
 
+## Release (OTA)
+1. Bump `TL_FW_VERSION` in `firmware/src/core/version.h`, build, commit and push.
+2. `python firmware/tools/make_release.py` → `firmware/release/v<version>/{firmware.bin,manifest.json}` (git-ignored).
+3. `gh release create v<version> firmware/release/v<version>/firmware.bin firmware/release/v<version>/manifest.json --target main` — NOT `--prerelease` (devices read `releases/latest`).
+Releases are public and devices see them at once — ask the owner before publishing. `gh` is installed on the work PC
+(`C:\Program Files\GitHub CLI\gh.exe`, logged in as Bacman88); on another machine install and `gh auth login` first.
+
 ## Git workflow (several computers: work / home)
 GitHub `Bacman88/TerraLight` is the sync point between machines; author identity is `Bacman <bacmanowski@gmail.com>`.
 - At session start: `git fetch` + `git status`; if behind `origin/main`, pull before editing anything.
@@ -45,6 +52,6 @@ GitHub `Bacman88/TerraLight` is the sync point between machines; author identity
 - M1 skeleton done (`2.0.0-dev.1`): settings, clock with POSIX TZ, non-blocking Wi-Fi + captive portal, BOOT reset, LED output, static light, panel + API.
 - 2026-10-14: M1 flashed and running on an ESP32-C3 SuperMini (COM6). Wi-Fi setup works (fixed an unsigned-timer bug that failed every test instantly), `terralight.local` works, full TX power is fine (RSSI −47).
 - 2026-10-14 also: Wi-Fi diagnostics (router disconnect reason in log + panel), show-password toggle, SSID from list fills the text field; first-run wizard in AP mode only (Wi-Fi/skip → LED count + supply), `SETTINGS_SCHEMA` 2 with migration; panel restyled like WeatherLight (dark navy + cyan).
-- Board state when stopping: Wi-Fi forgotten, `setupDone=false` → boots into `TerraLight-Setup` AP with the wizard — test the wizard end to end next.
+- 2026-10-14 later: OTA from GitHub Releases without a token (`net/ota`, `2.0.0-dev.2`, flashed). Board online; auto-check reaches GitHub over verified HTTPS ("no release found" before the first release).
 - Serial boot log: the board prints only at start; to capture it, listen on COM6 and press RESET (RTS reset from the PC does not work on this board).
 - Next: test the wizard; add the logo (owner will provide SVG/PNG, ~860 kB flash free); remaining M1 hardware checklist (`firmware/README.md`); then M2 — schedule, sun/moon, day scenes, night, demo.

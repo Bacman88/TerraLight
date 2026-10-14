@@ -3,3 +3,6 @@
 .vscode/c_cpp_properties.json
 .vscode/launch.json
 .vscode/ipch
+
+# OTA release assets (built by tools/make_release.py, uploaded to GitHub Releases)
+release/

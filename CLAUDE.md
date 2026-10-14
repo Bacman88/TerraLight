@@ -52,6 +52,7 @@ GitHub `Bacman88/TerraLight` is the sync point between machines; author identity
 - M1 skeleton done (`2.0.0-dev.1`): settings, clock with POSIX TZ, non-blocking Wi-Fi + captive portal, BOOT reset, LED output, static light, panel + API.
 - 2026-10-14: M1 flashed and running on an ESP32-C3 SuperMini (COM6). Wi-Fi setup works (fixed an unsigned-timer bug that failed every test instantly), `terralight.local` works, full TX power is fine (RSSI −47).
 - 2026-10-14 also: Wi-Fi diagnostics (router disconnect reason in log + panel), show-password toggle, SSID from list fills the text field; first-run wizard in AP mode only (Wi-Fi/skip → LED count + supply), `SETTINGS_SCHEMA` 2 with migration; panel restyled like WeatherLight (dark navy + cyan).
-- 2026-10-14 later: OTA from GitHub Releases without a token (`net/ota`, `2.0.0-dev.2`, flashed). Board online; auto-check reaches GitHub over verified HTTPS ("no release found" before the first release).
+- 2026-10-14 later: OTA from GitHub Releases without a token (`net/ota`, `2.0.0-dev.2`, flashed). First release `v2.0.0-dev.3` published with `gh`; the board found it on its own, downloaded ~1.3 MB in about a minute with the light running, verified SHA-256, rebooted into dev.3 and confirmed the image after 60 s. OTA works end to end.
+- Note: opening COM6 from a script resets this board (RTS), so restarting a serial listener reboots it.
 - Serial boot log: the board prints only at start; to capture it, listen on COM6 and press RESET (RTS reset from the PC does not work on this board).
 - Next: test the wizard; add the logo (owner will provide SVG/PNG, ~860 kB flash free); remaining M1 hardware checklist (`firmware/README.md`); then M2 — schedule, sun/moon, day scenes, night, demo.

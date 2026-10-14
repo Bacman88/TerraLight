@@ -16,6 +16,7 @@ const T = {
     back: 'Wstecz', next: 'Dalej', skip: 'Pomiń', finish: 'Zakończ',
     skipHint: 'Bez Wi-Fi światło działa, ale zegar nie ustawi się z internetu. Sieć możesz dodać później w ustawieniach.',
     wizCount: 'Ile diod LED?', wizSupply: 'Jaki zasilacz (5 V)?',
+    supplyHint: 'Tylko zasilacz 5 V, maks. 3 A. Mocniejszy zasilacz nie da więcej światła — sterownik ogranicza prąd do 2,5 A.',
     wizEstOk: 'Pełna biel: ok. {ma} mA — zasilacz wystarczy.',
     wizEstLimit: 'Pełna biel: ok. {ma} mA — więcej niż zasilacz; jasność zostanie ograniczona automatycznie.',
     ledStepHint: 'Resztę (kolory, jasność, typ diod) ustawisz później w panelu.',
@@ -58,6 +59,7 @@ const T = {
     back: 'Back', next: 'Next', skip: 'Skip', finish: 'Finish',
     skipHint: 'Without Wi-Fi the light works, but the clock cannot sync from the internet. You can add a network later in settings.',
     wizCount: 'How many LEDs?', wizSupply: 'Which power supply (5 V)?',
+    supplyHint: '5 V supplies only, max 3 A. A bigger supply gives no more light — the controller limits LED current to 2.5 A.',
     wizEstOk: 'Full white: approx. {ma} mA — the supply is enough.',
     wizEstLimit: 'Full white: approx. {ma} mA — more than the supply; brightness will be limited automatically.',
     ledStepHint: 'Everything else (colours, brightness, LED type) can be set later in the panel.',
@@ -161,6 +163,8 @@ function fillForm(c) {
   $('modShape').value = c.module.shape;
   $('modMa').value = c.module.maPerPixel;
   $('modBudget').value = c.module.budgetMa;
+  $('modBudget').max = c.module.budgetMaxMa;
+  $('modMa').min = c.module.maPerPixelMin;
 
   const sel = $('tzSelect');
   if (!sel.options.length) {

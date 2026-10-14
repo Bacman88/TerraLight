@@ -4,7 +4,7 @@ Status: projekt koncepcyjny do prototypowania, nie gotowa PCB.
 
 ## Architektura
 - ESP32-C3 SuperMini, Wi-Fi 2,4 GHz; przyszły ESP-NOW.
-- Jeden zasilacz 5 V / 2 A. Dwa równoległe obwody: zasilanie ESP przez wejście 5 V oraz zasilanie LED przez wyjście LED OUT. Wspólna masa.
+- Jedno zasilanie 5 V przez gniazdo USB-C (ładowarka 2–3 A, bez PD — patrz „Granice”). Dwa równoległe obwody: zasilanie ESP przez wejście 5 V oraz zasilanie LED przez wyjście LED OUT. Wspólna masa.
 - LED OUT: +5V / DATA / GND, jeden wymienny moduł LED na raz.
 - SENSOR: port sześciopinowy 3,3 V z dwiema liniami DHT i dwiema liniami rezerwowymi.
 - Brak przekaźników i obwodów 230 V w TerraLight v1.
@@ -50,6 +50,32 @@ Całość 5 V / 2 A = maks. 10 W. Zostawić margines dla ESP32 podczas Wi-Fi.
 - Niskoprądowy łańcuch WS2811 GFLAI: deklarowane około 20 mA na piksel, wymaga pomiaru na próbkach.
 - Długi cienki łańcuch może wymagać dodatkowego zasilania przez spadki napięcia.
 - Sygnał DATA z ESP32 (3,3 V) przechodzi **zawsze przez bufor 74HCT125 zasilany 5 V** przed wejściem LED. Połączenie bez konwertera nie jest docelowym wariantem.
+
+## Granice — sterownik bez dedykowanych diod (decyzja 2026-10-14)
+Klient może podłączyć własne diody i zasilacz, więc granice muszą wynikać ze sprzętu i firmware, nie z instrukcji.
+
+| Parametr | Wartość | Status |
+|---|---|---|
+| Zasilanie | **USB-C 5 V** (bez PD), ładowarka 2–3 A | cel projektu |
+| Prąd przez LED OUT | **maks. 2,5 A** (`LED_OUT_MAX_MA`) | cel projektu — sprawdzić na PCB (złącze, ścieżki, bezpiecznik) |
+| Liczba pikseli | maks. 300 (`MAX_LEDS`); jasność ograniczana do budżetu | firmware |
+| Prąd na piksel (ustawienie) | 10–120 mA (`MIN/MAX_MA_PER_PIXEL`) | firmware |
+| Diody | adresowalne 5 V, jedna linia DATA: WS2812B, WS2811 5 V | — |
+
+Firmware (od 2.0.0-dev.4): budżet LED nigdy powyżej 2,5 A — w API, przy wczytaniu ustawień i jeszcze raz w ograniczniku; kreator proponuje zasilacze tylko do 3 A; gdy sam prąd spoczynkowy łańcucha przekracza budżet, kolory gasną zamiast wyłączenia ogranicznika.
+**Ograniczenia firmware:** ogranicznik szacuje prąd z ustawionego mA/piksel — nie mierzy go. Błędne ustawienie, zwarcie, uszkodzony łańcuch albo diody 12 V nie zostaną przez firmware zatrzymane. Dlatego wymagane zabezpieczenia sprzętowe:
+
+- **Bezpiecznik polimerowy (PTC) na LED OUT** dobrany do 2,5 A — zwarcie i przeciążenie wyłączają wyjście, zanim ucierpi płytka.
+- **Wejście zasilania USB-C** — rozwiązuje odwrotną polaryzację i zasilacz 12 V (szczegóły niżej). Przy wtyku DC byłyby potrzebne P-MOSFET i OVP.
+- **ESD na DATA**, na złączu SENSOR i na VBUS (TVS).
+- **Pomiar napięcia wejściowego** (dzielnik do ADC): firmware zapisuje w NVS maksymalne zmierzone napięcie i zdarzenia przepięcia — „czarna skrzynka” widoczna w panelu, dowód przy reklamacji.
+
+**Gniazdo zasilania: USB-C (decyzja 2026-10-14).** Osobne gniazdo USB-C tylko do zasilania na płycie TerraLight (nie złącze USB płytki SuperMini — jej ścieżki nie są na 2,5 A). Odbiornik bez PD: dwa rezystory 5,1 kΩ z CC1/CC2 do masy, więc ładowarka daje wyłącznie 5 V — zasilacza 12 V nie da się podłączyć, a złącze nie pozwala odwrócić polaryzacji. Odrzucony wtyk DC 5,5/2,1: tańsze gniazdo, ale pasuje do każdego zasilacza 12/24 V i wymagałby ochrony przed przepięciem, która zjada różnicę w cenie.
+- **Odczyt mocy ładowarki:** napięcie na CC (przez ADC) mówi, ile prądu deklaruje źródło — domyślne USB / 1,5 A / 3 A. Firmware może sam ustawić budżet LED i ostrzec przy słabej ładowarce. Wymaga jednego–dwóch wejść ADC (GPIO0–4) — uwzględnić w pinoucie.
+- Nadal potrzebne: TVS na VBUS (ESD i przepięcia przy wpinaniu), PTC na LED OUT, pomiar napięcia wejściowego — przy USB-C głównie do wykrywania spadków napięcia (słaba ładowarka, cienki kabel).
+- Do testów: tanie ładowarki i kable (spadek napięcia przy 2,5 A), ładowarki deklarujące 3 A tylko przez PD.
+
+**Większe instalacje** (dużo diod, mocny zasilacz): diody zasilane bezpośrednio z zasilacza, przez sterownik tylko DATA i masa. Nieobsługiwane w v1 — ogranicznik zakłada, że prąd LED płynie przez płytkę.
 
 ## Testy przed PCB i sprzedażą
 Polaryzacja i termika, maksymalny pobór, reset przy Wi-Fi, integralność DATA, działanie z buforem i bez, spadek napięcia na przewodach, DHT22 lub DS18B20 na obu niezależnych liniach 0,5–1 m, kondensacja, odporność obudowy, ESD. ESP32 i zasilacz na zewnątrz terrarium. RGB nie zastępuje wymaganego gatunkowo światła dziennego ani UVB.

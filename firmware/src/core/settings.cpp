@@ -146,6 +146,9 @@ void begin() {
   if (ok) {
     // Guard against corrupted values.
     if (g_settings.module.count == 0 || g_settings.module.count > MAX_LEDS) g_settings.module.count = 12;
+    ModuleSettings& m = g_settings.module;
+    m.budgetMa = constrain(m.budgetMa, (uint16_t)100, LED_OUT_MAX_MA);
+    m.maPerPixel = constrain(m.maPerPixel, MIN_MA_PER_PIXEL, MAX_MA_PER_PIXEL);
     if (g_settings.light.density == 0) g_settings.light.density = 1;
     if (g_settings.output.maxBrightness == 0) g_settings.output.maxBrightness = 100;
     g_settings.time.tz[sizeof(g_settings.time.tz) - 1] = '\0';

@@ -14,6 +14,16 @@ namespace tl {
 constexpr uint16_t SETTINGS_SCHEMA = 2;
 constexpr uint16_t MAX_LEDS = 300;
 
+// Hard limits of the LED OUT path on the TerraLight board (HARDWARE.md
+// "Granice"). Design target — verify on the PCB (connector, traces, polyfuse).
+// The LED budget never exceeds this, whatever the user enters: 5 V / 3 A
+// supply minus ~500 mA for the ESP32 and Wi-Fi.
+constexpr uint16_t LED_OUT_MAX_MA = 2500;
+// The limiter trusts mA/pixel; a value far below any real WS28xx would let
+// the strip draw much more than the budget.
+constexpr uint16_t MIN_MA_PER_PIXEL = 10;
+constexpr uint16_t MAX_MA_PER_PIXEL = 120;
+
 enum class Profile : uint8_t { Terra = 0, Aqua = 1 };
 enum class ModulePreset : uint8_t { Ring8 = 0, Ring12 = 1, Arc = 2, Line = 3, Custom = 4 };
 enum class LedChip : uint8_t { WS2812B = 0, WS2811 = 1 };

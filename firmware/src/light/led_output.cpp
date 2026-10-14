@@ -149,11 +149,13 @@ void show(uint32_t nowMs, uint32_t dtMs) {
   requestedMa += QUIESCENT_MA_PER_PIXEL * g_count;
 
   // 4) Current limiter: scale the whole frame down to fit the LED budget.
+  // The budget is capped again here so no settings path can exceed the board limit.
   float scale = 1.0f;
-  const float budget = s.module.budgetMa;
+  const float budget = min(s.module.budgetMa, LED_OUT_MAX_MA);
   const float quiescent = QUIESCENT_MA_PER_PIXEL * g_count;
-  if (budget > quiescent && requestedMa > budget) {
-    scale = (budget - quiescent) / (requestedMa - quiescent);
+  if (requestedMa > budget) {
+    // Idle draw alone exceeds the budget → colour off rather than no limit at all.
+    scale = budget > quiescent ? (budget - quiescent) / (requestedMa - quiescent) : 0.0f;
   }
 
   float estimatedMa = quiescent;

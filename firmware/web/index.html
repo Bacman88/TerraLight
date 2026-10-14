@@ -42,10 +42,8 @@
         <option value="500">5 V / 1 A</option>
         <option value="1500">5 V / 2 A</option>
         <option value="2500">5 V / 3 A</option>
-        <option value="3500">5 V / 4 A</option>
-        <option value="5500">5 V / 6 A</option>
-        <option value="9500">5 V / 10 A</option>
       </select></label>
+    <p class="muted small" data-i18n="supplyHint">Tylko zasilacz 5 V, maks. 3 A. Mocniejszy zasilacz nie da więcej światła — sterownik ogranicza prąd do 2,5 A.</p>
     <p class="meter" id="wizEst">—</p>
   </section>
 
@@ -120,8 +118,8 @@
           <option value="arc" data-i18n="arc">Łuk</option>
           <option value="line" data-i18n="line">Linia</option>
         </select></label>
-      <label class="field"><span data-i18n="maPx">mA / piksel</span><input type="number" id="modMa" min="1" max="120"></label>
-      <label class="field"><span data-i18n="budget">Budżet prądu LED (mA)</span><input type="number" id="modBudget" min="100" max="10000" step="50"></label>
+      <label class="field"><span data-i18n="maPx">mA / piksel</span><input type="number" id="modMa" min="10" max="120"></label>
+      <label class="field"><span data-i18n="budget">Budżet prądu LED (mA)</span><input type="number" id="modBudget" min="100" max="2500" step="50"></label>
     </div>
     <p class="muted small" data-i18n="orderHint">Jeśli kolory się nie zgadzają (np. zielone zamiast czerwonego), zmień kolejność kolorów.</p>
     <button type="button" id="modSave" data-i18n="save">Zapisz</button>

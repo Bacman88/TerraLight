@@ -101,6 +101,8 @@ void settingsToJson(const Settings& s, JsonObject out) {
   m["count"] = s.module.count;
   m["maPerPixel"] = s.module.maPerPixel;
   m["budgetMa"] = s.module.budgetMa;
+  m["budgetMaxMa"] = LED_OUT_MAX_MA;
+  m["maPerPixelMin"] = MIN_MA_PER_PIXEL;
   m["maxCount"] = MAX_LEDS;
 
   JsonObject l = out["light"].to<JsonObject>();
@@ -147,8 +149,8 @@ ApplyResult applyJson(JsonObjectConst in, Settings& s) {
     Shape shape;
     if (fromName(SHAPES, m["shape"], shape)) s.module.shape = shape;
     setInt(m["count"], s.module.count, 1, MAX_LEDS);
-    setInt(m["maPerPixel"], s.module.maPerPixel, 1, 120);
-    setInt(m["budgetMa"], s.module.budgetMa, 100, 10000);
+    setInt(m["maPerPixel"], s.module.maPerPixel, MIN_MA_PER_PIXEL, MAX_MA_PER_PIXEL);
+    setInt(m["budgetMa"], s.module.budgetMa, 100, LED_OUT_MAX_MA);
     if (memcmp(&before, &s.module, sizeof(before)) != 0) {
       r.changed = r.moduleChanged = true;
     }

@@ -19,6 +19,11 @@ Owner: Bartosz / Smart Ant Technologies (GitHub `Bacman88`). Talk to the owner i
 ```
 Board not visible as a port → hold BOOT, tap RESET, release BOOT, upload again.
 
+Windows long paths: the ESP32 Arduino libs contain paths over 260 chars, so installing the platform
+fails with `FileNotFoundError` under `%USERPROFILE%\.platformio` unless long paths are enabled.
+Fix without admin: set the user env var `PLATFORMIO_CORE_DIR=C:\pio` (no trailing space) and restart
+VS Code; packages then go to `C:\pio` (the `penv` with `pio.exe` may stay in `%USERPROFILE%\.platformio`).
+
 ## Git workflow (several computers: work / home)
 GitHub `Bacman88/TerraLight` is the sync point between machines; author identity is `Bacman <bacmanowski@gmail.com>`.
 - At session start: `git fetch` + `git status`; if behind `origin/main`, pull before editing anything.
@@ -38,4 +43,5 @@ GitHub `Bacman88/TerraLight` is the sync point between machines; author identity
 
 ## Status
 - M1 skeleton done (`2.0.0-dev.1`): settings, clock with POSIX TZ, non-blocking Wi-Fi + captive portal, BOOT reset, LED output, static light, panel + API.
+- 2026-10-14: M1 builds clean on the work PC (RAM 14.9 % / 48.9 kB, Flash 55.7 % / 1.10 MB); not flashed yet.
 - Next: hardware test of M1 (checklist in `firmware/README.md`), then M2 — schedule, sun/moon calculation, day scenes, night, demo.

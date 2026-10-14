@@ -115,6 +115,7 @@ class Scene { public: virtual void render(const SceneContext&, FrameBuffer&) = 0
 - Zapis w NVS jako blob z **numerem wersji schematu**; przy aktualizacji OTA migracja ze starszej wersji zamiast utraty ustawień.
 - Wartości domyślne zależne od profilu (Aqua: dłuższy świt, niebieska noc, DS18B20 na DATA1).
 - Zapis odroczony (np. 2 s po ostatniej zmianie) — ochrona flash przy przesuwaniu suwaków.
+- Historia schematu: 1 = `2.0.0-dev.1`; 2 = dodane `system.setupDone` (migracja 1 → 2 ustawia `true`, żeby skonfigurowane urządzenie nie dostało kreatora po OTA).
 - **Kopia zapasowa:** eksport / import ustawień jako plik JSON z panelu.
 
 ## 7. Czujniki
@@ -142,7 +143,8 @@ JSON, bez autoryzacji w sieci lokalnej (jak WeatherLight).
 
 ## 9. Panel WWW
 - Jedna strona (vanilla JS, bez frameworka), osadzona w firmware jako gzip — działa w trybie AP i bez internetu.
-- Kreator pierwszego uruchomienia: profil Terra/Aqua → moduł LED → Wi-Fi → lokalizacja / strefa → biotop.
+- Kreator pierwszego uruchomienia — **tylko w trybie AP** (`192.168.4.1`), dopóki `system.setupDone == false`: **Wi-Fi** (z „Pomiń”) → **liczba LED + zasilacz** (budżet prądu) → Zakończ. Wszystko inne zostaje na wartościach domyślnych i zmienia się później w panelu; pod `terralight.local` kreatora nie ma. Podczas kreatora AP nie zamyka się po udanym teście sieci (`wifi::holdAp`), tylko ok. 30 s po „Zakończ”. _(Decyzja 2026-10-14, zastępuje wcześniejszy 5-krokowy kreator.)_
+- Wygląd jak panel WeatherLight: ciemny granat `#1a1a2e` / karty `#16213e`, akcent cyjan `#00d4ff`.
 - Zakładki: **Pulpit** (stan, czujniki, szybkie przyciski: obserwacja / serwis / demo), **Światło dzienne**, **Harmonogram**, **Noc**, **Biotop i klimat**, **Czujniki**, **Ustawienia** (moduł, Wi-Fi, lokalizacja, system, kopia, aktualizacja).
 - Mapa lokalizacji (Leaflet + OSM z CDN) ładowana tylko na żądanie; zawsze dostępne pola współrzędnych i lista gotowych lokalizacji.
 - Tłumaczenia PL/EN po stronie przeglądarki (`i18n.js`) — mniej tekstów w pamięci ESP.

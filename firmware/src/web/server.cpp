@@ -131,6 +131,8 @@ void handleStatus() {
     case wifi::AttemptResult::Failed: w["attempt"] = "failed"; break;
     default: w["attempt"] = "none"; break;
   }
+  w["reason"] = wifi::lastReason();
+  w["reasonName"] = wifi::reasonName(wifi::lastReason());
 
   const led::Stats ls = led::stats();
   JsonObject l = doc["led"].to<JsonObject>();
@@ -166,6 +168,7 @@ void handleConfigPost() {
   }
   if (r.changed) settings::markDirty();
   if (r.timeZoneChanged) clk::setTimeZone(s.time.tz);
+  wifi::holdAp(!s.system.setupDone);
   sendConfig(r.restartRequired);
 }
 
@@ -251,6 +254,7 @@ void handleDefaults() {
   settings::markDirty();
   settings::saveNow();
   clk::setTimeZone(settings::get().time.tz);
+  wifi::holdAp(!settings::get().system.setupDone);
   sendConfig();
 }
 

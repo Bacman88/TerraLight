@@ -4,6 +4,7 @@
 #include <ESPmDNS.h>
 #include <Preferences.h>
 #include <WiFi.h>
+#include <esp_wifi.h>
 
 namespace tl {
 namespace wifi {
@@ -32,7 +33,46 @@ AttemptResult g_attempt = AttemptResult::None;
 String g_trySsid, g_tryPass;
 uint32_t g_attemptStartMs = 0;
 uint32_t g_apCloseAtMs = 0;
+bool g_holdAp = false;  // first-run wizard still open on the phone
 bool g_mdnsStarted = false;
+
+// Disconnect reasons from the router arrive on the Wi-Fi event task;
+// loop() logs them and keeps the one that ended a connection attempt.
+volatile uint8_t g_evReason = 0;
+volatile uint32_t g_evCount = 0;
+uint32_t g_evSeen = 0;
+uint8_t g_lastReason = 0;  // 0 = none
+
+// Associated with the router (before DHCP) — tells "no IP" apart from "rejected".
+volatile uint32_t g_evAssocCount = 0;
+uint32_t g_evAssocSeen = 0;
+bool g_associated = false;
+
+void onStaEvent(arduino_event_id_t event, arduino_event_info_t info) {
+  if (event == ARDUINO_EVENT_WIFI_STA_DISCONNECTED) {
+    g_evReason = info.wifi_sta_disconnected.reason;
+    g_evCount = g_evCount + 1;
+  } else if (event == ARDUINO_EVENT_WIFI_STA_CONNECTED) {
+    g_evAssocCount = g_evAssocCount + 1;
+  }
+}
+
+// A running async scan makes esp_wifi_connect() fail, so stop it first.
+void stopScan() {
+  if (WiFi.scanComplete() == WIFI_SCAN_RUNNING) {
+    esp_wifi_scan_stop();
+    WiFi.scanDelete();
+    Serial.println("[wifi] scan stopped before connecting");
+  }
+}
+
+void startConnect(const String& ssid, const String& pass) {
+  stopScan();
+  g_lastReason = 0;
+  g_associated = false;
+  const bool ok = WiFi.begin(ssid.c_str(), pass.c_str()) != WL_CONNECT_FAILED;
+  if (!ok) Serial.println("[wifi] WiFi.begin() refused");
+}
 
 // Some ESP32-C3 SuperMini batches have a poorly matched antenna and fail
 // to connect at full TX power. Build with -DTL_WIFI_TX_POWER=WIFI_POWER_8_5dBm
@@ -42,6 +82,10 @@ void applyTxPower() {
   WiFi.setTxPower(TL_WIFI_TX_POWER);
 #endif
 }
+
+// Signed difference: a timestamp taken after nowMs (e.g. set by a web request
+// handled earlier in the same loop()) must count as 0, not as ~49 days.
+int32_t elapsed(uint32_t nowMs, uint32_t sinceMs) { return (int32_t)(nowMs - sinceMs); }
 
 void setState(State s) {
   g_state = s;
@@ -88,7 +132,7 @@ void beginStation() {
   WiFi.mode(WIFI_STA);
   applyTxPower();
   WiFi.setHostname(g_hostname.c_str());
-  WiFi.begin(g_ssid.c_str(), g_pass.c_str());
+  startConnect(g_ssid, g_pass);
   setState(State::Connecting);
   Serial.printf("[wifi] connecting to \"%s\"\n", g_ssid.c_str());
 }
@@ -136,6 +180,8 @@ void begin(const char* hostname, ConnectedCallback onConnected) {
   g_onConnected = onConnected;
   WiFi.persistent(false);       // we store credentials ourselves
   WiFi.setAutoReconnect(false); // reconnects are handled by the state machine
+  WiFi.onEvent(onStaEvent, ARDUINO_EVENT_WIFI_STA_DISCONNECTED);
+  WiFi.onEvent(onStaEvent, ARDUINO_EVENT_WIFI_STA_CONNECTED);
   loadCredentials();
   if (g_ssid.length() > 0) {
     beginStation();
@@ -146,11 +192,24 @@ void begin(const char* hostname, ConnectedCallback onConnected) {
 }
 
 void loop(uint32_t nowMs) {
+  if (g_evAssocCount != g_evAssocSeen) {
+    g_evAssocSeen = g_evAssocCount;
+    g_associated = true;
+    Serial.println("[wifi] associated with the router, waiting for IP");
+  }
+  if (g_evCount != g_evSeen) {
+    g_evSeen = g_evCount;
+    const uint8_t r = g_evReason;
+    Serial.printf("[wifi] disconnected, reason %u (%s)\n", r, reasonName(r));
+    // Ignore our own WiFi.disconnect() after a timeout — keep the router's reason.
+    if (g_state == State::Connecting || g_attempt == AttemptResult::Trying) g_lastReason = r;
+  }
+
   switch (g_state) {
     case State::Connecting:
       if (WiFi.status() == WL_CONNECTED) {
         onStationUp();
-      } else if (nowMs - g_stateSinceMs > CONNECT_TIMEOUT_MS) {
+      } else if (elapsed(nowMs, g_stateSinceMs) > (int32_t)CONNECT_TIMEOUT_MS) {
         WiFi.disconnect();
         scheduleRetry(nowMs);
       }
@@ -178,12 +237,15 @@ void loop(uint32_t nowMs) {
           Serial.printf("[wifi] new network OK: %s, IP %s\n", g_trySsid.c_str(), WiFi.localIP().toString().c_str());
           startMdns();
           if (g_onConnected) g_onConnected();
-        } else if (nowMs - g_attemptStartMs > ATTEMPT_TIMEOUT_MS) {
+        } else if (elapsed(nowMs, g_attemptStartMs) > (int32_t)ATTEMPT_TIMEOUT_MS) {
           g_attempt = AttemptResult::Failed;
           WiFi.disconnect(false);  // keep the AP up
-          Serial.println("[wifi] new network failed");
+          if (g_associated && !g_lastReason) Serial.println("[wifi] new network failed: associated but no IP (DHCP)");
+          else Serial.printf("[wifi] new network failed, reason %u (%s)\n", g_lastReason, reasonName(g_lastReason));
         }
       }
+      // Keep the AP while the wizard runs; close it a while after it finishes.
+      if (g_attempt == AttemptResult::Ok && g_holdAp) g_apCloseAtMs = nowMs + AP_CLOSE_AFTER_SUCCESS_MS;
       if (g_attempt == AttemptResult::Ok && (int32_t)(nowMs - g_apCloseAtMs) >= 0) {
         stopAp();
         g_retryIndex = 0;
@@ -234,11 +296,19 @@ void tryCredentials(const String& ssid, const String& password) {
   g_attempt = AttemptResult::Trying;
   g_attemptStartMs = millis();
   WiFi.setHostname(g_hostname.c_str());
-  WiFi.begin(ssid.c_str(), password.c_str());
+  startConnect(ssid, password);
   Serial.printf("[wifi] testing \"%s\" (AP stays up)\n", ssid.c_str());
 }
 
 AttemptResult lastAttempt() { return g_attempt; }
+
+void holdAp(bool hold) { g_holdAp = hold; }
+
+uint8_t lastReason() { return g_lastReason; }
+
+const char* reasonName(uint8_t reason) {
+  return reason ? WiFi.disconnectReasonName((wifi_err_reason_t)reason) : "none";
+}
 
 void forgetAndStartAp() {
   clearCredentials();

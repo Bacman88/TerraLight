@@ -11,7 +11,7 @@
 
 namespace tl {
 
-constexpr uint16_t SETTINGS_SCHEMA = 1;
+constexpr uint16_t SETTINGS_SCHEMA = 2;
 constexpr uint16_t MAX_LEDS = 300;
 
 enum class Profile : uint8_t { Terra = 0, Aqua = 1 };
@@ -50,6 +50,7 @@ struct TimeSettings {
 struct SystemSettings {
   char hostname[32];  // mDNS: http://<hostname>.local
   char lang[4];       // "pl" / "en"
+  bool setupDone;     // first-run wizard finished (schema 2)
 };
 
 struct Settings {

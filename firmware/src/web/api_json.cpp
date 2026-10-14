@@ -120,6 +120,7 @@ void settingsToJson(const Settings& s, JsonObject out) {
   JsonObject sys = out["system"].to<JsonObject>();
   sys["hostname"] = s.system.hostname;
   sys["lang"] = s.system.lang;
+  sys["setupDone"] = s.system.setupDone;
 }
 
 ApplyResult applyJson(JsonObjectConst in, Settings& s) {
@@ -196,6 +197,13 @@ ApplyResult applyJson(JsonObjectConst in, Settings& s) {
       const char* lang = sys["lang"];
       if (strcmp(lang, "pl") == 0 || strcmp(lang, "en") == 0) {
         r.changed |= copyIfPresent(sys["lang"], s.system.lang, sizeof(s.system.lang));
+      }
+    }
+    if (sys["setupDone"].is<bool>()) {
+      const bool done = sys["setupDone"];
+      if (done != s.system.setupDone) {
+        s.system.setupDone = done;
+        r.changed = true;
       }
     }
   }

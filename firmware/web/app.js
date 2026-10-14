@@ -8,7 +8,18 @@ const T = {
   pl: {
     setupTitle: 'Połącz z domowym Wi-Fi',
     setupHint: 'Wybierz sieć 2,4 GHz i podaj hasło. Światło działa dalej podczas konfiguracji.',
-    scanning: 'Szukam sieci…', rescan: 'Odśwież', ssidManual: 'albo wpisz nazwę sieci', password: 'Hasło',
+    scanning: 'Szukam sieci…', rescan: 'Odśwież', ssidManual: 'Nazwa sieci (wybierz z listy albo wpisz)', password: 'Hasło',
+    showPass: 'Pokaż', hidePass: 'Ukryj', reasonCode: 'kod routera',
+    whyPass: 'najczęściej złe hasło albo za słaby sygnał', whyNoAp: 'płytka nie widzi tej sieci (5 GHz? literówka w nazwie?)',
+    whySec: 'niezgodne zabezpieczenia — ustaw w routerze WPA2 albo WPA2/WPA3', whyWeak: 'za słaby sygnał — przybliż płytkę do routera',
+    stepWifi: 'Wi-Fi', stepLed: 'LED i zasilacz',
+    back: 'Wstecz', next: 'Dalej', skip: 'Pomiń', finish: 'Zakończ',
+    skipHint: 'Bez Wi-Fi światło działa, ale zegar nie ustawi się z internetu. Sieć możesz dodać później w ustawieniach.',
+    wizCount: 'Ile diod LED?', wizSupply: 'Jaki zasilacz (5 V)?',
+    wizEstOk: 'Pełna biel: ok. {ma} mA — zasilacz wystarczy.',
+    wizEstLimit: 'Pełna biel: ok. {ma} mA — więcej niż zasilacz; jasność zostanie ograniczona automatycznie.',
+    ledStepHint: 'Resztę (kolory, jasność, typ diod) ustawisz później w panelu.',
+    setupFinished: 'Konfiguracja zakończona',
     connect: 'Połącz', light: 'Światło', color: 'Kolor', brightness: 'Jasność', density: 'Gęstość',
     dens1: 'Wszystkie diody', dens2: 'Co druga', dens3: 'Co trzecia', dens4: 'Co czwarta',
     module: 'Moduł LED', preset: 'Zestaw', custom: 'Własny', count: 'Liczba LED', chip: 'Układ',
@@ -34,7 +45,18 @@ const T = {
   en: {
     setupTitle: 'Connect to your home Wi-Fi',
     setupHint: 'Pick a 2.4 GHz network and enter the password. The light keeps running during setup.',
-    scanning: 'Scanning…', rescan: 'Rescan', ssidManual: 'or type the network name', password: 'Password',
+    scanning: 'Scanning…', rescan: 'Rescan', ssidManual: 'Network name (pick from the list or type)', password: 'Password',
+    showPass: 'Show', hidePass: 'Hide', reasonCode: 'router code',
+    whyPass: 'usually a wrong password or weak signal', whyNoAp: 'the board cannot see this network (5 GHz? typo in the name?)',
+    whySec: 'incompatible security — set the router to WPA2 or WPA2/WPA3', whyWeak: 'signal too weak — move the board closer to the router',
+    stepWifi: 'Wi-Fi', stepLed: 'LEDs and power supply',
+    back: 'Back', next: 'Next', skip: 'Skip', finish: 'Finish',
+    skipHint: 'Without Wi-Fi the light works, but the clock cannot sync from the internet. You can add a network later in settings.',
+    wizCount: 'How many LEDs?', wizSupply: 'Which power supply (5 V)?',
+    wizEstOk: 'Full white: approx. {ma} mA — the supply is enough.',
+    wizEstLimit: 'Full white: approx. {ma} mA — more than the supply; brightness will be limited automatically.',
+    ledStepHint: 'Everything else (colours, brightness, LED type) can be set later in the panel.',
+    setupFinished: 'Setup finished',
     connect: 'Connect', light: 'Light', color: 'Colour', brightness: 'Brightness', density: 'Density',
     dens1: 'Every pixel', dens2: 'Every 2nd', dens3: 'Every 3rd', dens4: 'Every 4th',
     module: 'LED module', preset: 'Preset', custom: 'Custom', count: 'LED count', chip: 'Chip',
@@ -148,7 +170,18 @@ async function saveConfig(patch, quiet) {
     fillForm(r.config);
     if (r.restartRequired) toast(t('restartNeeded'));
     else if (!quiet) toast(t('saved'));
-  } catch (e) { toast(t('error') + ': ' + e.message); }
+    return true;
+  } catch (e) { toast(t('error') + ': ' + e.message); return false; }
+}
+
+function saveModule(quiet) {
+  return saveConfig({
+    module: {
+      preset: $('modPreset').value, count: +$('modCount').value, chip: $('modChip').value,
+      order: $('modOrder').value, shape: $('modShape').value, maPerPixel: +$('modMa').value,
+      budgetMa: +$('modBudget').value
+    }
+  }, quiet);
 }
 
 // Live light controls — debounced so slider drags don't flood the ESP.
@@ -203,7 +236,7 @@ function renderStatus(s) {
   if (w.apActive) {
     if (w.attempt === 'trying') { msg.textContent = t('testing'); msg.className = 'msg'; }
     else if (w.attempt === 'ok') { msg.textContent = t('testOk') + `http://${w.hostname} (${w.ip})`; msg.className = 'msg ok'; }
-    else if (w.attempt === 'failed') { msg.textContent = t('testFail'); msg.className = 'msg err'; }
+    else if (w.attempt === 'failed') { msg.textContent = t('testFail') + reasonText(w); msg.className = 'msg err'; }
   }
 
   const l = s.led;
@@ -217,6 +250,84 @@ function renderStatus(s) {
   const up = s.uptimeSec;
   const upTxt = up > 86400 ? Math.floor(up / 86400) + ' d ' + Math.floor(up % 86400 / 3600) + ' h' : Math.floor(up / 3600) + ' h ' + Math.floor(up % 3600 / 60) + ' min';
   $('sysInfo').textContent = `${t('uptime')}: ${upTxt} · ${t('heap')}: ${Math.round(s.heapFree / 1024)} kB`;
+  wizRender();
+}
+
+// ── First-run wizard (setup AP only): Wi-Fi (skippable) → LEDs + supply ─
+// Everything else keeps its defaults and is changed later in the panel.
+const WIZ_STEPS = 2;
+let wizStep = 0;  // 0 = wizard off, normal panel
+
+function wizFillLed() {
+  if (!cfg) return;
+  $('wizCount').value = cfg.module.count;
+  // Pick the supply whose LED budget is closest to the saved one.
+  const opts = [...$('wizSupply').options];
+  const best = opts.reduce((a, o) => Math.abs(o.value - cfg.module.budgetMa) < Math.abs(a.value - cfg.module.budgetMa) ? o : a);
+  $('wizSupply').value = best.value;
+  wizEstimate();
+}
+
+function wizEstimate() {
+  const ma = (+$('wizCount').value || 0) * (cfg ? cfg.module.maPerPixel : 60);
+  const over = ma > +$('wizSupply').value;
+  $('wizEst').textContent = t(over ? 'wizEstLimit' : 'wizEstOk').replace('{ma}', ma);
+  $('wizEst').className = 'meter' + (over ? ' warn' : '');
+}
+
+function wizShow(step) {
+  wizStep = step;
+  document.body.classList.toggle('wizard', step > 0);
+  $('wizHead').classList.toggle('hidden', !step);
+  $('wizFoot').classList.toggle('hidden', !step);
+  document.querySelectorAll('main > .card').forEach((c) => c.classList.toggle('wizOn', +c.dataset.step === step));
+  document.querySelectorAll('#wizHead li').forEach((li, i) => {
+    li.classList.toggle('on', i + 1 === step);
+    li.classList.toggle('done', i + 1 < step);
+  });
+  wizRender();
+  window.scrollTo(0, 0);
+}
+
+function wizRender() {
+  if (!wizStep) return;
+  $('wizBack').classList.toggle('hidden', wizStep === 1);
+  // Wi-Fi step: "Next" once connected (or the test in AP mode succeeded), otherwise "Skip".
+  const w = status && status.wifi;
+  const online = w && (w.state === 'connected' || w.attempt === 'ok');
+  let next = 'next', hint = '';
+  if (wizStep === 1 && !online) { next = 'skip'; hint = t('skipHint'); }
+  if (wizStep === WIZ_STEPS) { next = 'finish'; hint = t('ledStepHint'); wizEstimate(); }
+  $('wizNext').textContent = t(next);
+  $('wizHint').textContent = hint;
+}
+
+async function wizNext() {
+  if (wizStep < WIZ_STEPS) {
+    if (wizStep === 1) wizFillLed();
+    wizShow(wizStep + 1);
+    return;
+  }
+  // 'custom' keeps the default chip/order/shape and only takes these two values.
+  const ok = await saveConfig({
+    module: { preset: 'custom', count: +$('wizCount').value, budgetMa: +$('wizSupply').value },
+    system: { setupDone: true }
+  }, true);
+  if (ok) {
+    wizShow(0);
+    toast(t('setupFinished'));
+  }
+}
+
+// Router's disconnect reason (ESP-IDF wifi_err_reason_t) → short hint.
+const REASON_HINT = {
+  2: 'whyPass', 14: 'whyPass', 15: 'whyPass', 202: 'whyPass', 204: 'whyPass',
+  201: 'whyNoAp', 210: 'whySec', 211: 'whySec', 200: 'whyWeak', 212: 'whyWeak'
+};
+function reasonText(w) {
+  if (!w.reason) return '';
+  const hint = REASON_HINT[w.reason];
+  return ` (${t('reasonCode')} ${w.reason}: ${w.reasonName}${hint ? ' — ' + t(hint) : ''})`;
 }
 
 async function pollStatus() {
@@ -267,13 +378,11 @@ function bind() {
   $('modPreset').addEventListener('change', () => saveConfig({ module: { preset: $('modPreset').value } }));
   ['modCount', 'modChip', 'modShape', 'modMa'].forEach((id) =>
     $(id).addEventListener('change', () => { $('modPreset').value = 'custom'; }));
-  $('modSave').addEventListener('click', () => saveConfig({
-    module: {
-      preset: $('modPreset').value, count: +$('modCount').value, chip: $('modChip').value,
-      order: $('modOrder').value, shape: $('modShape').value, maPerPixel: +$('modMa').value,
-      budgetMa: +$('modBudget').value
-    }
-  }));
+  $('modSave').addEventListener('click', () => saveModule(false));
+  $('wizBack').addEventListener('click', () => wizShow(wizStep - 1));
+  $('wizNext').addEventListener('click', wizNext);
+  $('wizCount').addEventListener('input', wizEstimate);
+  $('wizSupply').addEventListener('change', wizEstimate);
 
   $('tzSelect').addEventListener('change', () => {
     const z = ZONES.find(([n]) => n === $('tzSelect').value);
@@ -285,6 +394,16 @@ function bind() {
   });
 
   $('rescanBtn').addEventListener('click', () => scan(true));
+  $('ssidSelect').addEventListener('change', () => {
+    if ($('ssidSelect').value) $('ssidManual').value = $('ssidSelect').value;
+  });
+  $('passToggle').addEventListener('click', () => {
+    const p = $('wifiPass');
+    const show = p.type === 'password';
+    p.type = show ? 'text' : 'password';
+    $('passToggle').dataset.i18n = show ? 'hidePass' : 'showPass';
+    $('passToggle').textContent = t($('passToggle').dataset.i18n);
+  });
   $('connectBtn').addEventListener('click', connect);
   document.querySelector('#wifiCard details').addEventListener('toggle', (e) => { if (e.target.open) scan(true); });
   $('forgetBtn').addEventListener('click', async () => {
@@ -318,6 +437,8 @@ async function init() {
   bind();
   try { fillForm((await api('/api/config')).config); } catch (e) { toast(t('error') + ': ' + e.message); }
   await pollStatus();
+  // The wizard is the setup-AP experience; on the home network use the panel.
+  if (cfg && !cfg.system.setupDone && status && status.wifi.apActive) wizShow(1);
   if (status && status.wifi.apActive) scan(false);
   setInterval(pollStatus, 3000);
 }

@@ -43,5 +43,8 @@ GitHub `Bacman88/TerraLight` is the sync point between machines; author identity
 
 ## Status
 - M1 skeleton done (`2.0.0-dev.1`): settings, clock with POSIX TZ, non-blocking Wi-Fi + captive portal, BOOT reset, LED output, static light, panel + API.
-- 2026-10-14: M1 builds clean on the work PC (RAM 14.9 % / 48.9 kB, Flash 55.7 % / 1.10 MB); not flashed yet.
-- Next: hardware test of M1 (checklist in `firmware/README.md`), then M2 — schedule, sun/moon calculation, day scenes, night, demo.
+- 2026-10-14: M1 flashed and running on an ESP32-C3 SuperMini (COM6). Wi-Fi setup works (fixed an unsigned-timer bug that failed every test instantly), `terralight.local` works, full TX power is fine (RSSI −47).
+- 2026-10-14 also: Wi-Fi diagnostics (router disconnect reason in log + panel), show-password toggle, SSID from list fills the text field; first-run wizard in AP mode only (Wi-Fi/skip → LED count + supply), `SETTINGS_SCHEMA` 2 with migration; panel restyled like WeatherLight (dark navy + cyan).
+- Board state when stopping: Wi-Fi forgotten, `setupDone=false` → boots into `TerraLight-Setup` AP with the wizard — test the wizard end to end next.
+- Serial boot log: the board prints only at start; to capture it, listen on COM6 and press RESET (RTS reset from the PC does not work on this board).
+- Next: test the wizard; add the logo (owner will provide SVG/PNG, ~860 kB flash free); remaining M1 hardware checklist (`firmware/README.md`); then M2 — schedule, sun/moon, day scenes, night, demo.

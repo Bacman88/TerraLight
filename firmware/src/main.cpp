@@ -62,6 +62,7 @@ void setup() {
   clk::begin(s.time.tz);
   button::begin(onButtonLongPress);
   wifi::begin(s.system.hostname, onWifiConnected);
+  wifi::holdAp(!s.system.setupDone);
   web::begin();
 
   g_lastFrameMs = millis();

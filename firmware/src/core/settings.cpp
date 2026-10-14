@@ -17,6 +17,20 @@ uint32_t g_revision = 1;
 bool g_dirty = false;
 uint32_t g_dirtySinceMs = 0;
 
+// Schema 1 layout (2.0.0-dev.1) — kept only for the migration below.
+struct SystemSettingsV1 {
+  char hostname[32];
+  char lang[4];
+};
+struct SettingsV1 {
+  Profile profile;
+  ModuleSettings module;
+  LightSettings light;
+  OutputSettings output;
+  TimeSettings time;
+  SystemSettingsV1 system;
+};
+
 void copyStr(char* dst, size_t size, const char* src) {
   strncpy(dst, src, size - 1);
   dst[size - 1] = '\0';
@@ -83,6 +97,7 @@ void resetToDefaults(Profile profile) {
 
   copyStr(s.system.hostname, sizeof(s.system.hostname), "terralight");
   copyStr(s.system.lang, sizeof(s.system.lang), "pl");
+  s.system.setupDone = false;  // panel opens the first-run wizard
 
   if (profile == Profile::Aqua) {
     s.light.r = 220;
@@ -103,10 +118,32 @@ void begin() {
   const uint16_t schema = prefs.getUShort(NVS_KEY_SCHEMA, 0);
   const size_t len = prefs.getBytesLength(NVS_KEY_BLOB);
 
+  bool ok = false;
   if (schema == SETTINGS_SCHEMA && len == sizeof(Settings)) {
     Settings loaded;
     prefs.getBytes(NVS_KEY_BLOB, &loaded, sizeof(loaded));
     g_settings = loaded;
+    ok = true;
+  } else if (schema == 1 && len == sizeof(SettingsV1)) {
+    // 1 → 2: adds system.setupDone. A device that already has saved
+    // settings is configured, so it must not get the wizard after OTA.
+    SettingsV1 v1;
+    prefs.getBytes(NVS_KEY_BLOB, &v1, sizeof(v1));
+    Settings& s = g_settings;
+    s.profile = v1.profile;
+    s.module = v1.module;
+    s.light = v1.light;
+    s.output = v1.output;
+    s.time = v1.time;
+    memcpy(s.system.hostname, v1.system.hostname, sizeof(s.system.hostname));
+    memcpy(s.system.lang, v1.system.lang, sizeof(s.system.lang));
+    s.system.setupDone = true;
+    g_dirty = true;  // store as schema 2 on the first loop()
+    Serial.println("[settings] migrated schema 1 → 2");
+    ok = true;
+  }
+
+  if (ok) {
     // Guard against corrupted values.
     if (g_settings.module.count == 0 || g_settings.module.count > MAX_LEDS) g_settings.module.count = 12;
     if (g_settings.light.density == 0) g_settings.light.density = 1;
@@ -117,7 +154,6 @@ void begin() {
     g_settings.system.lang[sizeof(g_settings.system.lang) - 1] = '\0';
     Serial.printf("[settings] loaded (schema %u)\n", schema);
   } else if (schema != 0) {
-    // Future: migrations from older schemas go here.
     Serial.printf("[settings] schema %u not supported (expected %u) — defaults\n", schema, SETTINGS_SCHEMA);
   }
   prefs.end();
@@ -147,7 +183,8 @@ void saveNow() {
 }
 
 void loop(uint32_t nowMs) {
-  if (g_dirty && nowMs - g_dirtySinceMs >= SAVE_DELAY_MS) saveNow();
+  // Signed: g_dirtySinceMs may be set by a web request after nowMs was taken.
+  if (g_dirty && (int32_t)(nowMs - g_dirtySinceMs) >= (int32_t)SAVE_DELAY_MS) saveNow();
 }
 
 }  // namespace settings

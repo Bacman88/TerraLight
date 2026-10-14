@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="light dark">
+<meta name="color-scheme" content="dark">
 <title>TerraLight</title>
 <link rel="stylesheet" href="style.css">
 </head>
@@ -24,8 +24,33 @@
 </header>
 
 <main>
+  <!-- First-run wizard: shows one step (data-step cards) at a time -->
+  <section class="wizHead hidden" id="wizHead">
+    <ol class="steps">
+      <li data-i18n="stepWifi">Wi-Fi</li>
+      <li data-i18n="stepLed">LED i zasilacz</li>
+    </ol>
+  </section>
+
+  <!-- Wizard step 2: only the two things that matter on first run -->
+  <section class="card wizOnly" id="wizLedCard" data-step="2">
+    <h2 data-i18n="stepLed">LED i zasilacz</h2>
+    <label class="field"><span data-i18n="wizCount">Ile diod LED?</span>
+      <input type="number" id="wizCount" min="1" max="300" inputmode="numeric"></label>
+    <label class="field"><span data-i18n="wizSupply">Jaki zasilacz (5 V)?</span>
+      <select id="wizSupply">
+        <option value="500">5 V / 1 A</option>
+        <option value="1500">5 V / 2 A</option>
+        <option value="2500">5 V / 3 A</option>
+        <option value="3500">5 V / 4 A</option>
+        <option value="5500">5 V / 6 A</option>
+        <option value="9500">5 V / 10 A</option>
+      </select></label>
+    <p class="meter" id="wizEst">—</p>
+  </section>
+
   <!-- Setup (AP mode) -->
-  <section class="card hidden" id="setupCard">
+  <section class="card hidden" id="setupCard" data-step="1">
     <h2 data-i18n="setupTitle">Połącz z domowym Wi-Fi</h2>
     <p class="muted" data-i18n="setupHint">Wybierz sieć 2,4 GHz i podaj hasło. Światło działa dalej podczas konfiguracji.</p>
     <div class="wifiForm" id="wifiForm">
@@ -33,8 +58,11 @@
         <select id="ssidSelect"><option value="" data-i18n="scanning">Szukam sieci…</option></select>
         <button type="button" class="ghost" id="rescanBtn" data-i18n="rescan">Odśwież</button>
       </div>
-      <input id="ssidManual" placeholder="SSID" data-i18n-ph="ssidManual" autocomplete="off">
-      <input id="wifiPass" type="password" placeholder="Hasło" data-i18n-ph="password" autocomplete="off">
+      <input id="ssidManual" placeholder="SSID" data-i18n-ph="ssidManual" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+      <div class="row">
+        <input id="wifiPass" type="password" placeholder="Hasło" data-i18n-ph="password" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+        <button type="button" class="ghost" id="passToggle" data-i18n="showPass">Pokaż</button>
+      </div>
       <button type="button" id="connectBtn" data-i18n="connect">Połącz</button>
       <p class="msg" id="wifiMsg"></p>
     </div>
@@ -139,6 +167,14 @@
       <button type="button" class="ghost danger" id="defaultsBtn" data-i18n="defaults">Ustawienia fabryczne</button>
     </div>
     <p class="muted small" id="sysInfo">—</p>
+  </section>
+
+  <section class="wizFoot hidden" id="wizFoot">
+    <p class="muted small" id="wizHint"></p>
+    <div class="row">
+      <button type="button" class="ghost" id="wizBack" data-i18n="back">Wstecz</button>
+      <button type="button" id="wizNext">Dalej</button>
+    </div>
   </section>
 </main>
 

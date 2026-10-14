@@ -47,6 +47,15 @@ IPAddress ip();      // STA IP, or AP IP while in AP mode
 void tryCredentials(const String& ssid, const String& password);
 AttemptResult lastAttempt();
 
+// While held, a successful test does not close the AP (first-run wizard
+// still needs the phone connected). Released when the wizard finishes.
+void holdAp(bool hold);
+
+// Router's disconnect reason (wifi_err_reason_t) from the last connection
+// attempt or test; 0 = none. reasonName() gives the ESP-IDF name.
+uint8_t lastReason();
+const char* reasonName(uint8_t reason);
+
 // BOOT long press / panel: forget the saved network and open the AP.
 void forgetAndStartAp();
 

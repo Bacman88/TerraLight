@@ -129,4 +129,5 @@ Na kanale DS18B20 może pracować kilka sond (unikalne adresy 1-Wire); DHT22 zaw
 - [x] **Strefa czasowa:** _(naprawione w v2 M1: `core/clock`)_ `configTime(3600, 3600, …)` daje UTC+2 przez cały rok — zimą zegar spieszy się o 1 h. Dotyczy TerraLight v1.0.0 **i WeatherLight v6.3.0**. Poprawka: `configTzTime()` z regułą POSIX.
 - [x] **Blokujący captive portal:** _(naprawione w v2 M1: `net/wifi_manager`)_ pętla `while (apMode)` zatrzymuje cykl dnia, LED gasną po 60 s.
 - [x] _(naprawione w v2 M1)_ Captive portal używa stałej `NUMPIXELS` zamiast skonfigurowanej liczby LED.
+- [x] _(naprawione w v2 M1, 2026-10-14)_ **Liczniki czasu bez znaku:** `loop()` pobiera `now` przed obsługą HTTP, a handler zapisuje `millis()` później → `now - start` przekręca się i timeout „mija” od razu. Objaw: test Wi-Fi z panelu kończył się porażką natychmiast (kod 0), a zapis ustawień nie był odraczany. Zasada: porównania czasu przez `(int32_t)(now - since)`.
 - [x] _(v2: `core/pins.h` wg HARDWARE.md)_ Pinout v1 (LED na GPIO2 — pin startowy, przycisk na GPIO5) nieaktualny względem hardware v0.1.

@@ -15,7 +15,10 @@ Opis docelowej wersji w [docs/PCB.md](../docs/PCB.md). Wariant seryjny stosuje *
 Projekt KiCad 9 (schemat v0.2): [kicad9/TerraLight-main](kicad9/TerraLight-main/) — opis i założenia w jego README.
 Lista koniecznych przeglądów: [kicad9/WERYFIKACJA.md](kicad9/WERYFIKACJA.md).
 
-### 3. `easyeda/` — minimalny schemat
+### 3. `kicad9/TerraLight-mini` — płytka dla początkujących
+ESP32-C3 SuperMini w listwach żeńskich + elementy przewlekane: układ z breadboardu na własnej płytce, z bezpiecznikiem LED, diodą od zasilania zwrotnego, zaciskami śrubowymi i gniazdem SENSOR. 16 elementów do przylutowania, bez SMD. Opis, kolejność lutowania i testy: [kicad9/TerraLight-mini](kicad9/TerraLight-mini/).
+
+### 4. `easyeda/` — minimalny schemat
 Eksperymentalny wariant dla EasyEDA Standard. Wymaga potwierdzenia poprawności importu i pinoutu płytki SuperMini. Nie używać bez sprawdzenia.
 
 ## Ważne

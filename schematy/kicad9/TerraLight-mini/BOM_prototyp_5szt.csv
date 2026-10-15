@@ -1,0 +1,18 @@
+Oznaczenia;Wartość;Numer producenta (MPN);Footprint;Szt./płytkę;Na 5 płytek;Kupić (z zapasem);Uwagi
+J1;ZASILANIE 5V (z modułu USB-C);zacisk ARK 2-pin 5,08 mm (np. Phoenix MKDS 1,5/2-5,08 lub DG301-5.0-02P);TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal;1;5;6;"zacisk śrubowy (ARK) 5,08 mm; przewody z modułu USB-C z rezystorami 5,1k na CC; 1 = +5V, 2 = GND"
+F1;PTC 3A hold;Bourns MF-RG300 [PTC 3 A hold, przewlekany];Fuse_Bourns_MF-RG300;1;5;6;"bezpiecznik polimerowy przewlekany; zwarcie na LED wyłącza tylko LED, ESP pracuje dalej"
+C1;1000µF 16V;[1000 µF 16 V, przewlekany Ø10 mm, raster 5 mm];CP_Radial_D10.0mm_P5.00mm;1;5;6;elektrolit przewlekany Ø10 mm, uwaga na biegunowość (pasek = minus)
+J2;LED OUT;zacisk ARK 3-pin 5,08 mm (np. Phoenix MKDS 1,5/3-5,08 lub DG301-5.0-03P);TerminalBlock_Phoenix_MKDS-1,5-3-5.08_1x03_P5.08mm_Horizontal;1;5;6;"zacisk śrubowy (ARK) 5,08 mm; 1 = +5V, 2 = DATA, 3 = GND"
+D1;1N5819;1N5819;D_DO-41_SOD81_P10.16mm_Horizontal;1;5;6;"blokuje prąd z płytki do komputera, gdy SuperMini jest jednocześnie podłączony kablem USB; pasek = katoda"
+C3;100µF 16V;[100 µF 16 V, przewlekany Ø6,3 mm, raster 2,5 mm];CP_Radial_D6.3mm_P2.50mm;1;5;6;podtrzymuje ESP przy skokach prądu LED
+R2;100k;rezystor 0,25 W 1% THT 100 kΩ;R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal;1;5;20;
+R3;47k;rezystor 0,25 W 1% THT 47 kΩ;R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal;1;5;20;dzielnik: 5 V → 1,6 V na GPIO0 (pomiar napięcia zasilacza)
+U2;SN74HCT125N;TI SN74HCT125N (+ podstawka DIP-14);DIP-14_W7.62mm_Socket;1;5;6;"HCT (nie HC!), w podstawce DIP-14 — wycięcie/kropka = pin 1; nieużywane bufory wyłączone"
+C2;100nF;kondensator ceramiczny THT 100 nF 50 V, raster 5 mm;C_Disc_D5.0mm_W2.5mm_P5.00mm;1;5;20;jak najbliżej pinów 14 i 7 U2
+R1;330;rezystor 0,25 W 1% THT 330 Ω;R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal;1;5;20;
+U1;ESP32-C3 SuperMini;ESP32-C3 SuperMini (+ 2× listwa żeńska 1×8 2,54 mm);ESP32-C3-SuperMini_Socket;1;5;6;"wkładany w 2 listwy żeńskie 1×8; USB-C SuperMini do programowania; antena (koniec bez USB) nad krawędzią / bez miedzi pod spodem"
+R4, R5;4.7k;rezystor 0,25 W 1% THT 4,7 kΩ;R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal;2;10;20;pull-up DHT22 / DS18B20
+J3;SENSOR (JST-XH 6p);JST B6B-XH-A (+ wtyk XHP-6 z przewodami);JST_XH_B6B-XH-A_1x06_P2.50mm_Vertical;1;5;6;1=3V3 2=GND 3=DATA1 4=DATA2 5=AUX1 6=AUX2 (jak port SENSOR v1)
+—;Moduł gniazda USB-C (tylko zasilanie);[moduł USB-C z rezystorami 5,1 kΩ na CC — sprawdzić opis!];—;1;5;6;"poza płytką, przykręcony w obudowie; przewody ≥0,5 mm² do J1"
+—;Podstawka DIP-14;[podstawka precyzyjna DIP-14];DIP-14;1;5;6;pod U2 — układ nie jest lutowany
+—;Listwa żeńska 1×8, 2,54 mm;[gniazdo goldpin 1×8 proste];—;2;10;12;pod SuperMini

@@ -103,6 +103,7 @@ ADC na ESP32-C3 działa pewnie tylko na GPIO0–4 (ADC1; ADC2 koliduje z Wi-Fi).
 
 ### 6. Mechanika, programowanie, pady testowe
 - USB-C, LED OUT i SENSOR na jednej krawędzi; 4 otwory M3; przyciski i dioda statusu dostępne przez obudowę.
+- **Obudowa:** własna, drukowana w 3D i dopasowana do gotowej płytki. Na płytce: 3 otwory THT na przewód LED (otwór ok. 1,2–1,5 mm pod AWG 20–22) + 2 otwory na odciążenie przewodu, bez złącza na PCB.
 - 2 warstwy, 35 µm, GND na całej dolnej warstwie. Dzielnik ADC i linie CC z dala od toru LED.
 - **Pierwsze wgranie firmware:** przez USB-C z komputera (PlatformIO / esptool, wbudowane USB). Dalej aktualizacje przez OTA.
 - **Awaryjnie** (np. błąd na liniach USB): pady UART0 TX (GPIO21) / RX (GPIO20) / GPIO9 / EN / 3V3 / GND — przejściówka USB-UART 3,3 V.

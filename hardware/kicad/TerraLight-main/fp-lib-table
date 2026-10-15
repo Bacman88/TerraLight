@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "TerraLight")(type "KiCad")(uri "${KIPRJMOD}/TerraLight.pretty")(options "")(descr "TerraLight project footprints"))
+)

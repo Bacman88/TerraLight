@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "TerraLight")(type "KiCad")(uri "${KIPRJMOD}/TerraLight.kicad_sym")(options "")(descr "TerraLight project symbols"))
+)

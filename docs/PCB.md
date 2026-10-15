@@ -1,6 +1,6 @@
 # TerraLight — płytka główna (projekt schematu v0.2)
 
-Status: **zatwierdzone do rysowania schematu** (2026-10-15). Na jej podstawie powstanie schemat i PCB w **KiCad 9**, produkcja z montażem SMD w JLCPCB. Wartości oznaczone **[do sprawdzenia]** potwierdzić w kartach katalogowych i na prototypie. Założenia: [HARDWARE.md](HARDWARE.md) (sekcja „Granice”), [SENSOR_MINI.md](SENSOR_MINI.md), [LED_MODULES.md](LED_MODULES.md).
+Status: **zatwierdzone do rysowania schematu** (2026-10-15). **Schemat KiCad 9:** [hardware/kicad/TerraLight-main](../hardware/kicad/TerraLight-main/) — do sprawdzenia ERC w KiCad i doboru elementów. Na jej podstawie powstanie schemat i PCB w **KiCad 9**, produkcja z montażem SMD w JLCPCB. Wartości oznaczone **[do sprawdzenia]** potwierdzić w kartach katalogowych i na prototypie. Założenia: [HARDWARE.md](HARDWARE.md) (sekcja „Granice”), [SENSOR_MINI.md](SENSOR_MINI.md), [LED_MODULES.md](LED_MODULES.md).
 
 **Decyzja (2026-10-15):** płytka od razu w wersji seryjnej z modułem **ESP32-C3-MINI-1-N4** wlutowanym w PCB (bez SuperMini). Powody: niższy koszt w serii, montaż w całości w fabryce, moduł ma certyfikat CE (klony SuperMini nie mają — ważne przy sprzedaży urządzenia radiowego w UE), jedno gniazdo USB-C do zasilania i programowania. Firmware dalej testujemy na SuperMini z buforem DIP na płytce stykowej — przydział GPIO jest ten sam.
 

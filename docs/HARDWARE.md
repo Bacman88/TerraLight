@@ -1,6 +1,6 @@
 # TerraLight — hardware v0.1
 
-Status: projekt koncepcyjny do prototypowania, nie gotowa PCB.
+Status: projekt koncepcyjny do prototypowania, nie gotowa PCB. Ten dokument opisuje prototyp na ESP32-C3 SuperMini; płytka seryjna (moduł ESP32-C3-MINI-1 wlutowany w PCB, ten sam przydział GPIO) — [PCB.md](PCB.md).
 
 ## Architektura
 - ESP32-C3 SuperMini, Wi-Fi 2,4 GHz; przyszły ESP-NOW.
@@ -34,6 +34,8 @@ Bufor chroni zgodność logiczną i stabilność DATA, **nie jest zabezpieczenie
 Proponowane gniazdo: JST-GH 6-pin 1,25 mm z zatrzaskiem. To **logiczny** pinout; fizyczne oznaczenie pinów zweryfikować według konkretnego złącza. Wszystkie GPIO pracują na 3,3 V. Nie dopuszcza się podłączania/odłączania modułów pod napięciem bez dodatkowych testów i ochrony.
 
 ## GPIO — do zatwierdzenia
+Propozycja pełnego przydziału (z ADC i kluczem zasilania LED): [PCB.md](PCB.md).
+
 Kandydaci: LED DATA GPIO4, DHT A GPIO5, DHT B GPIO6, AUX1 GPIO7, AUX2 GPIO10. **Nie traktować jako zatwierdzonego pinoutu** przed sprawdzeniem schematu konkretnej płytki ESP32-C3 SuperMini, funkcji pinów startowych, USB i rezerwacji.
 
 Piny zajęte lub ryzykowne na SuperMini — nie używać do LED/SENSOR: GPIO2, GPIO8 (wbudowana dioda), GPIO9 (BOOT) — piny startowe; GPIO18/19 — USB; GPIO20/21 — UART.

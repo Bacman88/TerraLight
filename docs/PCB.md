@@ -78,7 +78,7 @@ ADC na ESP32-C3 działa pewnie tylko na GPIO0–4 (ADC1; ADC2 koliduje z Wi-Fi).
   - C4 ok. 22 nF bramka–dren Q1: miękki start rzędu kilku ms **[dobrać na prototypie]**.
   - Po co: brak udaru i resetów ESP przy włączeniu; w nocy odcięcie prądu spoczynkowego diod (WS2811 ok. 1 mA/piksel → ~0,3 A przy 300 pikselach); odcięcie wyjścia przy błędzie.
 - **C5:** 1000 µF / 10 V low-ESR (lub 2 × 470 µF) + **C6:** 10 µF ceramiczny przy LED OUT.
-- **J2 LED OUT:** gniazdo **JST-VH 3-pin** (raster 3,96 mm, THT, z zatrzaskiem; prąd znamionowy wielokrotnie powyżej 2,5 A **[do sprawdzenia w karcie]**). Montowane przez JLCPCB (montaż THT) — płytki przychodzą gotowe, bez lutowania w domu. Do zestawu **kabel-przejściówka VH → JST-SM 3-pin** (wejście typowych pasków WS2812B), zamawiany gotowy; przekrój min. AWG 20–22. Kolejność pinów gniazda: 1 = +5V, 2 = DATA, 3 = GND **[potwierdzić]**; rodzaj wtyku JST-SM (męski / żeński) i kolejność żył po jego stronie dobrać do pasków na próbkach i opisać w KOMPATYBILNOSC.md.
+- **J2 LED OUT:** gniazdo **JST-VH 3-pin** (raster 3,96 mm, THT, z zatrzaskiem; prąd znamionowy wielokrotnie powyżej 2,5 A **[do sprawdzenia w karcie]**). Montowane przez JLCPCB (montaż THT) — płytki przychodzą gotowe, bez lutowania w domu. Do zestawu **kabel-przejściówka VH → JST-SM 3-pin żeński** (decyzja 2026-10-15) (wejście typowych pasków WS2812B), zamawiany gotowy; przekrój min. AWG 20–22. Kolejność pinów gniazda: 1 = +5V, 2 = DATA, 3 = GND **[potwierdzić]**; kolejność żył po stronie JST-SM dobrać do pasków na próbkach i opisać w KOMPATYBILNOSC.md.
 - Droga USB-C → LED OUT i powrót GND: wylewka lub ścieżka ≥ 1,5 mm (miedź 35 µm).
 
 ### 3. DATA LED
@@ -142,12 +142,12 @@ ADC na ESP32-C3 działa pewnie tylko na GPIO0–4 (ADC1; ADC2 koliduje z Wi-Fi).
 - Przy doborze elementów preferować części „basic” JLCPCB — każda „extended” to dopłata za zamówienie.
 
 ## Decyzje (2026-10-15)
-1. **Złącze LED OUT:** gniazdo **JST-VH 3-pin** na płytce + kabel-przejściówka VH → JST-SM w zestawie — szczegóły w bloku 2.
+1. **Złącze LED OUT:** gniazdo **JST-VH 3-pin** na płytce + kabel-przejściówka VH → JST-SM **żeński** w zestawie — szczegóły w bloku 2.
 2. **Klucz zasilania LED (Q1):** tak.
 3. **Antena:** wbudowana w moduł (ESP32-C3-MINI-1-N4), obudowa plastikowa.
 4. **GPIO2 / GPIO21:** wolne pady na przyszłość, bez funkcji.
 
-Pozostaje do sprawdzenia na prototypie: wartości oznaczone **[do sprawdzenia]** / **[do doboru]**, rodzaj wtyku JST-SM na kablu-przejściówce i kolejność żył.
+Pozostaje do sprawdzenia na prototypie: wartości oznaczone **[do sprawdzenia]** / **[do doboru]**, kolejność żył na kablu-przejściówce (wtyk JST-SM żeński — ustalone).
 
 ## Zmiany w firmware po zatwierdzeniu
 `core/pins.h`: VBUS_SENSE = 0, CC1_SENSE = 1, CC2_SENSE = 3, LED_PWR_EN = 20 (pozostałe bez zmian). Sterowanie kluczem LED (włączanie przed pierwszą klatką ≠ czerni, wyłączanie po ok. 1 min czerni, LED_DATA niski przed wyłączeniem), odczyt mocy źródła z CC (komputer → niski budżet LED), „czarna skrzynka” napięcia.

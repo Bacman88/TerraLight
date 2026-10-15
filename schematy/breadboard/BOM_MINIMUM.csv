@@ -1,0 +1,10 @@
+Wariant;Ilość;Element;Wartość;Uwagi
+Breadboard;1;ESP32-C3 SuperMini;;USB-C, pinout sprawdzić
+Breadboard;1;74HCT125 DIP-14;5 V;Pixel Boost, nie 74HC125
+Breadboard;1;Rezystor szeregowy DATA;330 Ω;Pomiędzy wyjściem HCT a DIN LED
+Breadboard;1;Kondensator odsprzęgający;100 nF;Przy VCC/GND bufora
+Breadboard;1;Kondensator na zasilaniu LED;470–1000 µF ≥10 V;Elektrolityczny z polaryzacją
+Breadboard;1;Moduł LED;WS2812B 5 V x6;Na start jasność 20–30%
+Breadboard;1;Breadboard i przewody;;Zgodnie z prądem testowym
+Breadboard;opcjonalnie;Czujnik DHT22 albo DS18B20;3,3 V;GPIO5 i GPIO6
+Breadboard;opcjonalnie;Pull-up sondy;4,7 kΩ;Osobno dla DATA1 i DATA2

@@ -33,7 +33,7 @@ Podłączysz **adresowalne diody 5 V z jedną linią danych**:
 - diod **RGBW** (np. SK6812 RGBW) — obecne oprogramowanie obsługuje tylko RGB;
 - niczego do gniazda SENSOR poza czujnikami TerraLight.
 
-Złącze LED: przewód z wtykiem **JST-SM 3-pin**, +5 V / DATA / GND **[rodzaj wtyku i kolejność żył — do ustalenia na próbkach]**. Gotowe przewody różnych producentów mają różną kolejność — sprawdź opis, zanim podłączysz.
+Złącze LED: gniazdo **JST-VH 3-pin** na sterowniku (+5 V / DATA / GND); w zestawie kabel-przejściówka na **JST-SM 3-pin**, pasujący do większości pasków **[rodzaj wtyku i kolejność żył — do ustalenia na próbkach]**. Gotowe przewody różnych producentów mają różną kolejność — sprawdź opis, zanim podłączysz.
 
 ## Ile diod?
 

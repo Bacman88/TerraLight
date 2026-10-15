@@ -1,6 +1,6 @@
 # TerraLight — moduły LED
 
-Wspólne wyjście LED OUT: 5 V / DATA / GND. Podłączany jeden wybrany moduł. Złącze roboczo JST-SM 3-pin; zweryfikować polaryzację wiązki, bo gotowe przewody producentów mogą mieć różną kolejność pinów.
+Wspólne wyjście LED OUT: 5 V / DATA / GND. Podłączany jeden wybrany moduł. Na sterowniku gniazdo JST-VH 3-pin, do modułów kabel-przejściówka VH → JST-SM 3-pin (patrz PCB.md); zweryfikować polaryzację wiązki, bo gotowe przewody producentów mogą mieć różną kolejność pinów.
 
 | Wariant | Liczba | Forma |
 |---|---:|---|

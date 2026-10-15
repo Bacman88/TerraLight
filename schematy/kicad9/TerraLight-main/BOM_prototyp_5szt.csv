@@ -22,7 +22,7 @@ D2;ESD 5V;Nexperia PESD5V0S1BA;D_SOD-323;1;5;6;[do doboru] ESD 5 V
 D3;SS14;SS14;D_SMA;1;5;6;
 C9, C10, C13;1µF;Samsung CL21B105KAFNNNE;C_0805_2012Metric;3;15;25;
 U4;AP2112K-3.3;Diodes AP2112K-3.3TRG1;SOT-23-5;1;5;6;[do doboru] LDO ≥500 mA (JLC basic)
-U5;ESP32-C3-MINI-1-N4;Espressif ESP32-C3-MINI-1-N4;ESP32-C3-MINI-1;1;5;6;"antena wbudowana; strefa bez miedzi wg karty"
+U5;ESP32-C3-WROOM-02-N4;Espressif ESP32-C3-WROOM-02-N4;ESP32-C3-WROOM-02_HandSolder;1;5;6;"antena PCB na krawędzi płytki — strefa bez miedzi wg karty; pad GND pod spodem lutowany od dołu przez otwór"
 SW2, SW1;RESET;E-Switch TL3342 [sprawdzić wariant];SW_SPST_TL3342;2;10;12;
 LED1;STATUS;[LED 0805, dowolny kolor];LED_0805_2012Metric;1;5;6;
 F2;PTC 0.1A hold;Littelfuse 0805L010;Fuse_0805_2012Metric;1;5;6;[do doboru]

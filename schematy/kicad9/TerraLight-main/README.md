@@ -7,7 +7,7 @@ Schemat według [docs/PCB.md](../../../docs/PCB.md) (v0.2, 2026-10-15). Otwórz 
 |---|---|
 | `TerraLight-main.kicad_sch` | schemat, jeden arkusz A3, 6 bloków jak w PCB.md |
 | `TerraLight.kicad_sym` | biblioteka symboli projektu (podpięta przez `sym-lib-table`) |
-| `TerraLight.pretty/` | footprint ESP32-C3-MINI-1 (Espressif, CC-BY-SA 4.0) |
+| `TerraLight.pretty/` | footprint ESP32-C3-WROOM-02 (Espressif, CC-BY-SA 4.0) + otwór w padzie GND do lutowania od spodu |
 | `BOM_prototyp_5szt.csv` | lista zakupów na 5 płytek: numery producentów (MPN) do wyszukania w TME / LCSC / Mouser, ilości z zapasem |
 
 Projekt nie wymaga dodatkowych bibliotek symboli. Footprinty poza modułem ESP32 pochodzą ze standardowych bibliotek KiCad.
@@ -15,7 +15,7 @@ Model 3D modułu ESP32 jest dostępny po zainstalowaniu biblioteki Espressif z m
 
 ## Jak powstał i co sprawdzono
 Schemat wygenerowano skryptem, bez KiCad (w środowisku nie było dostępu do `kicad-cli`):
-- symbole standardowe są kopiami bibliotek KiCad 9; ESP32-C3-MINI-1 pochodzi z oficjalnej biblioteki Espressif. USBLC6-2SC6, 74AHCT1G125 i SRV05-4 narysowano w tym samym stylu.
+- symbole standardowe są kopiami bibliotek KiCad 9; ESP32-C3-WROOM-02 pochodzi z oficjalnej biblioteki Espressif. USBLC6-2SC6, 74AHCT1G125 i SRV05-4 narysowano w tym samym stylu.
 - każdy pin ma krótki odcinek przewodu zakończony etykietą sieci lub symbolem zasilania. Nie ma skrzyżowań ani rozgałęzień, które mogłyby się „nie złapać”.
 - połączenia sprawdzono niezależnym skryptem (geometria pinów zweryfikowana na prawdziwych schematach KiCad 9): **53 sieci, 0 niepodłączonych pinów, 0 wiszących przewodów**. Każda sieć zgadza się z listą zamierzonych połączeń.
 - składnia pliku została porównana ze schematami zapisanymi przez KiCad 9 i nie zawiera nieznanych elementów.
@@ -24,6 +24,14 @@ Schemat wygenerowano skryptem, bez KiCad (w środowisku nie było dostępu do `k
 1. *Inspekcja → Electrical Rules Checker (ERC)* — powinien przejść bez błędów. Ewentualne ostrzeżenia wrzucić do zgłoszenia.
 2. *Narzędzia → Przypisz footprinty* — przejrzeć proponowane footprinty (kolumna Footprint), szczególnie te oznaczone niżej.
 3. Zapisać projekt (KiCad może zaktualizować format pliku).
+
+## Moduł: ESP32-C3-WROOM-02 (decyzja 2026-10-15)
+Prototypy lutujemy ręcznie, więc zamiast ESP32-C3-MINI-1 (pady tylko pod spodem, wymaga hot aira) jest **ESP32-C3-WROOM-02-N4**:
+- pady **na krawędziach modułu** (półotwory) — lutuje się je zwykłą lutownicą,
+- pole GND pod modułem ma w footprincie **otwór metalizowany** — cynę podaje się lutownicą od spodu płytki, aż wypełni otwór,
+- ten sam układ ESP32-C3, 4 MB flash, antena PCB na krawędzi modułu; moduł większy (18 × 20 mm).
+
+Przydział GPIO bez zmian (tabela w PCB.md). Firmware nie wymaga zmian. W wersji seryjnej (montaż w fabryce) można wrócić do MINI-1.
 
 ## Założenia przyjęte przy rysowaniu
 Elementy w PCB.md oznaczone **[do doboru]** mają na schemacie typowe wartości robocze. Szczegóły są w polu **Uwagi** każdego elementu (pole ukryte, widoczne we właściwościach).

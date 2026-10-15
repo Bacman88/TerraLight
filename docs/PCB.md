@@ -4,6 +4,8 @@ Status: **zatwierdzone do rysowania schematu** (2026-10-15). **Schemat KiCad 9:*
 
 **Decyzja (2026-10-15):** płytka od razu w wersji seryjnej z modułem **ESP32-C3-MINI-1-N4** wlutowanym w PCB (bez SuperMini). Powody: niższy koszt w serii, montaż w całości w fabryce, moduł ma certyfikat CE (klony SuperMini nie mają — ważne przy sprzedaży urządzenia radiowego w UE), jedno gniazdo USB-C do zasilania i programowania. Firmware dalej testujemy na SuperMini z buforem DIP na płytce stykowej — przydział GPIO jest ten sam.
 
+**Zmiana (2026-10-15, wieczór):** pierwsze prototypy (5 szt.) montujemy **ręcznie**, więc na płytce jest moduł **ESP32-C3-WROOM-02-N4** — pady na krawędziach, do lutowania zwykłą lutownicą; pole GND pod spodem lutowane od dołu przez otwór metalizowany. Ten sam układ, przydział GPIO i firmware bez zmian. Elementy pasywne 0805. Przy produkcji seryjnej w fabryce można wrócić do MINI-1 (mniejszy). Szczegóły: [README projektu KiCad](../schematy/kicad9/TerraLight-main/README.md).
+
 ## Złącza (zewnętrznie bez zmian względem SuperMini)
 | Złącze | Rola |
 |---|---|

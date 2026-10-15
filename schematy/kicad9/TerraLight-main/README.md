@@ -29,6 +29,7 @@ Elementy w PCB.md oznaczone **[do doboru]** mają na schemacie typowe wartości 
 
 | Element | Na schemacie | Do decyzji |
 |---|---|---|
+| J2 LED OUT | JST **S3P-VH kątowe** (kabel wychodzi z krawędzi płytki, jak USB-C i SENSOR) | sprawdzić nazwę footprintu w bibliotece KiCad |
 | J1 USB-C | footprint HRO TYPE-C-31-M-12 (16-pin, zaczepy THT) | potwierdzić prąd ≥ 3 A; ekran (S1) połączony z GND |
 | D1 TVS VBUS | SMF5.0A, SOD-123F | |
 | F1 / F2 | PTC 1812 ~3 A / PTC 0805 ~0,1 A | konkretne typy |

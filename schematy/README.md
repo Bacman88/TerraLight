@@ -12,6 +12,7 @@ Instrukcja w [breadboard/INSTRUKCJA.md](breadboard/INSTRUKCJA.md).
 ### 2. `kicad9/` — płytka seryjna (projekt inżynierski)
 Opis docelowej wersji w [docs/PCB.md](../docs/PCB.md). Wariant seryjny stosuje **ESP32-C3-MINI-1-N4 wlutowany w PCB**, USB-C z USB-Serial/JTAG, zabezpieczenia, PTC, klucz LED i port SENSOR. To **inna konstrukcja** niż prototyp na SuperMini.
 
+Projekt KiCad 9 (schemat v0.2): [kicad9/TerraLight-main](kicad9/TerraLight-main/) — opis i założenia w jego README.
 Lista koniecznych przeglądów: [kicad9/WERYFIKACJA.md](kicad9/WERYFIKACJA.md).
 
 ### 3. `easyeda/` — minimalny schemat

@@ -1,7 +1,7 @@
-("kicad_symbol_lib"
-	("version" 20241209)
-	("generator" "kicad_symbol_editor")
-	("generator_version" "9.0")
+(kicad_symbol_lib
+	(version 20241209)
+	(generator "kicad_symbol_editor")
+	(generator_version "9.0")
 	(symbol "+3V3"
 		(power)
 		(pin_names
@@ -124,164 +124,164 @@
 		)
 		(embedded_fonts no)
 	)
-	("symbol" "74AHCT1G125"
-		("pin_names"
-			("offset" 1.016)
+	(symbol "74AHCT1G125"
+		(pin_names
+			(offset 1.016)
 		)
-		("exclude_from_sim" no)
-		("in_bom" yes)
-		("on_board" yes)
-		("property" "Reference" "U"
-			("at" 5.842 5.08 0)
-			("effects"
-				("font"
-					("size" 1.27 1.27)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "U"
+			(at 5.842 5.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
 				)
-				("justify" left)
-			)
-		)
-		("property" "Value" "74AHCT1G125"
-			("at" 5.842 -5.08 0)
-			("effects"
-				("font"
-					("size" 1.27 1.27)
-				)
-				("justify" left)
+				(justify left)
 			)
 		)
-		("property" "Footprint" "Package_TO_SOT_SMD:SOT-23-5"
-			("at" 0 0 0)
-			("effects"
-				("font"
-					("size" 1.27 1.27)
+		(property "Value" "74AHCT1G125"
+			(at 5.842 -5.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
 				)
-				("hide" yes)
+				(justify left)
 			)
 		)
-		("property" "Datasheet" "https://assets.nexperia.com/documents/data-sheet/74AHCT1G125.pdf"
-			("at" 0 0 0)
-			("effects"
-				("font"
-					("size" 1.27 1.27)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-5"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
 				)
-				("hide" yes)
+				(hide yes)
 			)
 		)
-		("property" "Description" "Single bus buffer, 3-state, TTL-level inputs (3.3 V -> 5 V), SOT-23-5"
-			("at" 0 0 0)
-			("effects"
-				("font"
-					("size" 1.27 1.27)
+		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/74AHCT1G125.pdf"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
 				)
-				("hide" yes)
+				(hide yes)
 			)
 		)
-		("symbol" "74AHCT1G125_0_1"
-			("rectangle"
-				("start" -5.08 3.81)
-				("end" 5.08 -3.81)
-				("stroke"
-					("width" 0.254)
-					("type" default)
+		(property "Description" "Single bus buffer, 3-state, TTL-level inputs (3.3 V -> 5 V), SOT-23-5"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
 				)
-				("fill"
-					("type" background)
-				)
+				(hide yes)
 			)
 		)
-		("symbol" "74AHCT1G125_1_1"
-			("pin" input line
-				("at" -7.62 1.27 0)
-				("length" 2.54)
-				("name" "A"
-					("effects"
-						("font"
-							("size" 1.27 1.27)
-						)
-					)
+		(symbol "74AHCT1G125_0_1"
+			(rectangle
+				(start -5.08 3.81)
+				(end 5.08 -3.81)
+				(stroke
+					(width 0.254)
+					(type default)
 				)
-				("number" "2"
-					("effects"
-						("font"
-							("size" 1.27 1.27)
-						)
-					)
-				)
-			)
-			("pin" input line
-				("at" -7.62 -1.27 0)
-				("length" 2.54)
-				("name" "~{OE}"
-					("effects"
-						("font"
-							("size" 1.27 1.27)
-						)
-					)
-				)
-				("number" "1"
-					("effects"
-						("font"
-							("size" 1.27 1.27)
-						)
-					)
-				)
-			)
-			("pin" tri_state line
-				("at" 7.62 1.27 180)
-				("length" 2.54)
-				("name" "Y"
-					("effects"
-						("font"
-							("size" 1.27 1.27)
-						)
-					)
-				)
-				("number" "4"
-					("effects"
-						("font"
-							("size" 1.27 1.27)
-						)
-					)
-				)
-			)
-			("pin" power_in line
-				("at" 0 6.35 270)
-				("length" 2.54)
-				("name" "VCC"
-					("effects"
-						("font"
-							("size" 1.27 1.27)
-						)
-					)
-				)
-				("number" "5"
-					("effects"
-						("font"
-							("size" 1.27 1.27)
-						)
-					)
-				)
-			)
-			("pin" power_in line
-				("at" 0 -6.35 90)
-				("length" 2.54)
-				("name" "GND"
-					("effects"
-						("font"
-							("size" 1.27 1.27)
-						)
-					)
-				)
-				("number" "3"
-					("effects"
-						("font"
-							("size" 1.27 1.27)
-						)
-					)
+				(fill
+					(type background)
 				)
 			)
 		)
-		("embedded_fonts" no)
+		(symbol "74AHCT1G125_1_1"
+			(pin input line
+				(at -7.62 1.27 0)
+				(length 2.54)
+				(name "A"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin input line
+				(at -7.62 -1.27 0)
+				(length 2.54)
+				(name "~{OE}"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin tri_state line
+				(at 7.62 1.27 180)
+				(length 2.54)
+				(name "Y"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "4"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin power_in line
+				(at 0 6.35 270)
+				(length 2.54)
+				(name "VCC"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "5"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin power_in line
+				(at 0 -6.35 90)
+				(length 2.54)
+				(name "GND"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
 	)
 	(symbol "AP2112K-3.3"
 		(pin_names
@@ -602,7 +602,7 @@
 	)
 	(symbol "C_Polarized"
 		(pin_numbers
-			("hide" yes)
+			(hide yes)
 		)
 		(pin_names
 			(offset 0.254)
@@ -759,7 +759,7 @@
 				)
 			)
 		)
-		("embedded_fonts" no)
+		(embedded_fonts no)
 	)
 	(symbol "Conn_01x03"
 		(pin_names
@@ -1663,16 +1663,16 @@
 					)
 				)
 			)
-			("polyline"
+			(polyline
 				(pts
-					("xy" -1.016 -9.652) ("xy" 1.016 -9.652)
+					(xy -1.016 -9.652) (xy 1.016 -9.652)
 				)
-				("stroke"
-					("width" 0.1524)
-					("type" default)
+				(stroke
+					(width 0.1524)
+					(type default)
 				)
-				("fill"
-					("type" none)
+				(fill
+					(type none)
 				)
 			)
 		)
@@ -1804,7 +1804,7 @@
 	(symbol "D_TVS"
 		(pin_names
 			(offset 1.016)
-			("hide" yes)
+			(hide yes)
 		)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1946,7 +1946,7 @@
 				)
 			)
 		)
-		("embedded_fonts" no)
+		(embedded_fonts no)
 	)
 	(symbol "ESP32-C3-MINI-1"
 		(exclude_from_sim no)
@@ -3642,7 +3642,7 @@
 	(symbol "Q_NMOS_GSD"
 		(pin_names
 			(offset 0)
-			("hide" yes)
+			(hide yes)
 		)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3924,12 +3924,12 @@
 				)
 			)
 		)
-		("embedded_fonts" no)
+		(embedded_fonts no)
 	)
 	(symbol "Q_PMOS_GSD"
 		(pin_names
 			(offset 0)
-			("hide" yes)
+			(hide yes)
 		)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4211,7 +4211,7 @@
 				)
 			)
 		)
-		("embedded_fonts" no)
+		(embedded_fonts no)
 	)
 	(symbol "R"
 		(pin_numbers
@@ -4337,182 +4337,182 @@
 		)
 		(embedded_fonts no)
 	)
-	("symbol" "SRV05-4"
-		("pin_names"
-			("offset" 1.016)
+	(symbol "SRV05-4"
+		(pin_names
+			(offset 1.016)
 		)
-		("exclude_from_sim" no)
-		("in_bom" yes)
-		("on_board" yes)
-		("property" "Reference" "U"
-			("at" 5.842 5.08 0)
-			("effects"
-				("font"
-					("size" 1.27 1.27)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "U"
+			(at 5.842 5.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
 				)
-				("justify" left)
-			)
-		)
-		("property" "Value" "SRV05-4"
-			("at" 5.842 -5.08 0)
-			("effects"
-				("font"
-					("size" 1.27 1.27)
-				)
-				("justify" left)
+				(justify left)
 			)
 		)
-		("property" "Footprint" "Package_TO_SOT_SMD:SOT-23-6"
-			("at" 0 0 0)
-			("effects"
-				("font"
-					("size" 1.27 1.27)
+		(property "Value" "SRV05-4"
+			(at 5.842 -5.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
 				)
-				("hide" yes)
+				(justify left)
 			)
 		)
-		("property" "Datasheet" "~"
-			("at" 0 0 0)
-			("effects"
-				("font"
-					("size" 1.27 1.27)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-6"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
 				)
-				("hide" yes)
+				(hide yes)
 			)
 		)
-		("property" "Description" "4-channel low-capacitance ESD/TVS array with VCC rail clamp, SOT-23-6"
-			("at" 0 0 0)
-			("effects"
-				("font"
-					("size" 1.27 1.27)
+		(property "Datasheet" "~"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
 				)
-				("hide" yes)
+				(hide yes)
 			)
 		)
-		("symbol" "SRV05-4_0_1"
-			("rectangle"
-				("start" -5.08 3.81)
-				("end" 5.08 -3.81)
-				("stroke"
-					("width" 0.254)
-					("type" default)
+		(property "Description" "4-channel low-capacitance ESD/TVS array with VCC rail clamp, SOT-23-6"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
 				)
-				("fill"
-					("type" background)
-				)
+				(hide yes)
 			)
 		)
-		("symbol" "SRV05-4_1_1"
-			("pin" passive line
-				("at" -7.62 1.27 0)
-				("length" 2.54)
-				("name" "I/O1"
-					("effects"
-						("font"
-							("size" 1.27 1.27)
-						)
-					)
+		(symbol "SRV05-4_0_1"
+			(rectangle
+				(start -5.08 3.81)
+				(end 5.08 -3.81)
+				(stroke
+					(width 0.254)
+					(type default)
 				)
-				("number" "1"
-					("effects"
-						("font"
-							("size" 1.27 1.27)
-						)
-					)
-				)
-			)
-			("pin" passive line
-				("at" -7.62 -1.27 0)
-				("length" 2.54)
-				("name" "I/O2"
-					("effects"
-						("font"
-							("size" 1.27 1.27)
-						)
-					)
-				)
-				("number" "3"
-					("effects"
-						("font"
-							("size" 1.27 1.27)
-						)
-					)
-				)
-			)
-			("pin" passive line
-				("at" 7.62 1.27 180)
-				("length" 2.54)
-				("name" "I/O3"
-					("effects"
-						("font"
-							("size" 1.27 1.27)
-						)
-					)
-				)
-				("number" "4"
-					("effects"
-						("font"
-							("size" 1.27 1.27)
-						)
-					)
-				)
-			)
-			("pin" passive line
-				("at" 7.62 -1.27 180)
-				("length" 2.54)
-				("name" "I/O4"
-					("effects"
-						("font"
-							("size" 1.27 1.27)
-						)
-					)
-				)
-				("number" "6"
-					("effects"
-						("font"
-							("size" 1.27 1.27)
-						)
-					)
-				)
-			)
-			("pin" passive line
-				("at" 0 6.35 270)
-				("length" 2.54)
-				("name" "VCC"
-					("effects"
-						("font"
-							("size" 1.27 1.27)
-						)
-					)
-				)
-				("number" "5"
-					("effects"
-						("font"
-							("size" 1.27 1.27)
-						)
-					)
-				)
-			)
-			("pin" passive line
-				("at" 0 -6.35 90)
-				("length" 2.54)
-				("name" "GND"
-					("effects"
-						("font"
-							("size" 1.27 1.27)
-						)
-					)
-				)
-				("number" "2"
-					("effects"
-						("font"
-							("size" 1.27 1.27)
-						)
-					)
+				(fill
+					(type background)
 				)
 			)
 		)
-		("embedded_fonts" no)
+		(symbol "SRV05-4_1_1"
+			(pin passive line
+				(at -7.62 1.27 0)
+				(length 2.54)
+				(name "I/O1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -7.62 -1.27 0)
+				(length 2.54)
+				(name "I/O2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 7.62 1.27 180)
+				(length 2.54)
+				(name "I/O3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "4"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 7.62 -1.27 180)
+				(length 2.54)
+				(name "I/O4"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "6"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 0 6.35 270)
+				(length 2.54)
+				(name "VCC"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "5"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 0 -6.35 90)
+				(length 2.54)
+				(name "GND"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
 	)
 	(symbol "SW_Push"
 		(pin_numbers
@@ -4771,182 +4771,182 @@
 		)
 		(embedded_fonts no)
 	)
-	("symbol" "USBLC6-2SC6"
-		("pin_names"
-			("offset" 1.016)
+	(symbol "USBLC6-2SC6"
+		(pin_names
+			(offset 1.016)
 		)
-		("exclude_from_sim" no)
-		("in_bom" yes)
-		("on_board" yes)
-		("property" "Reference" "U"
-			("at" 5.842 5.08 0)
-			("effects"
-				("font"
-					("size" 1.27 1.27)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "U"
+			(at 5.842 5.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
 				)
-				("justify" left)
-			)
-		)
-		("property" "Value" "USBLC6-2SC6"
-			("at" 5.842 -5.08 0)
-			("effects"
-				("font"
-					("size" 1.27 1.27)
-				)
-				("justify" left)
+				(justify left)
 			)
 		)
-		("property" "Footprint" "Package_TO_SOT_SMD:SOT-23-6"
-			("at" 0 0 0)
-			("effects"
-				("font"
-					("size" 1.27 1.27)
+		(property "Value" "USBLC6-2SC6"
+			(at 5.842 -5.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
 				)
-				("hide" yes)
+				(justify left)
 			)
 		)
-		("property" "Datasheet" "https://www.st.com/resource/en/datasheet/usblc6-2.pdf"
-			("at" 0 0 0)
-			("effects"
-				("font"
-					("size" 1.27 1.27)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-6"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
 				)
-				("hide" yes)
+				(hide yes)
 			)
 		)
-		("property" "Description" "ESD protection for USB 2.0 data lines + VBUS, SOT-23-6"
-			("at" 0 0 0)
-			("effects"
-				("font"
-					("size" 1.27 1.27)
+		(property "Datasheet" "https://www.st.com/resource/en/datasheet/usblc6-2.pdf"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
 				)
-				("hide" yes)
+				(hide yes)
 			)
 		)
-		("symbol" "USBLC6-2SC6_0_1"
-			("rectangle"
-				("start" -5.08 3.81)
-				("end" 5.08 -3.81)
-				("stroke"
-					("width" 0.254)
-					("type" default)
+		(property "Description" "ESD protection for USB 2.0 data lines + VBUS, SOT-23-6"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
 				)
-				("fill"
-					("type" background)
-				)
+				(hide yes)
 			)
 		)
-		("symbol" "USBLC6-2SC6_1_1"
-			("pin" passive line
-				("at" -7.62 1.27 0)
-				("length" 2.54)
-				("name" "I/O1"
-					("effects"
-						("font"
-							("size" 1.27 1.27)
-						)
-					)
+		(symbol "USBLC6-2SC6_0_1"
+			(rectangle
+				(start -5.08 3.81)
+				(end 5.08 -3.81)
+				(stroke
+					(width 0.254)
+					(type default)
 				)
-				("number" "1"
-					("effects"
-						("font"
-							("size" 1.27 1.27)
-						)
-					)
-				)
-			)
-			("pin" passive line
-				("at" -7.62 -1.27 0)
-				("length" 2.54)
-				("name" "I/O2"
-					("effects"
-						("font"
-							("size" 1.27 1.27)
-						)
-					)
-				)
-				("number" "3"
-					("effects"
-						("font"
-							("size" 1.27 1.27)
-						)
-					)
-				)
-			)
-			("pin" passive line
-				("at" 7.62 1.27 180)
-				("length" 2.54)
-				("name" "I/O1"
-					("effects"
-						("font"
-							("size" 1.27 1.27)
-						)
-					)
-				)
-				("number" "6"
-					("effects"
-						("font"
-							("size" 1.27 1.27)
-						)
-					)
-				)
-			)
-			("pin" passive line
-				("at" 7.62 -1.27 180)
-				("length" 2.54)
-				("name" "I/O2"
-					("effects"
-						("font"
-							("size" 1.27 1.27)
-						)
-					)
-				)
-				("number" "4"
-					("effects"
-						("font"
-							("size" 1.27 1.27)
-						)
-					)
-				)
-			)
-			("pin" passive line
-				("at" 0 6.35 270)
-				("length" 2.54)
-				("name" "VBUS"
-					("effects"
-						("font"
-							("size" 1.27 1.27)
-						)
-					)
-				)
-				("number" "5"
-					("effects"
-						("font"
-							("size" 1.27 1.27)
-						)
-					)
-				)
-			)
-			("pin" passive line
-				("at" 0 -6.35 90)
-				("length" 2.54)
-				("name" "GND"
-					("effects"
-						("font"
-							("size" 1.27 1.27)
-						)
-					)
-				)
-				("number" "2"
-					("effects"
-						("font"
-							("size" 1.27 1.27)
-						)
-					)
+				(fill
+					(type background)
 				)
 			)
 		)
-		("embedded_fonts" no)
+		(symbol "USBLC6-2SC6_1_1"
+			(pin passive line
+				(at -7.62 1.27 0)
+				(length 2.54)
+				(name "I/O1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -7.62 -1.27 0)
+				(length 2.54)
+				(name "I/O2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 7.62 1.27 180)
+				(length 2.54)
+				(name "I/O1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "6"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 7.62 -1.27 180)
+				(length 2.54)
+				(name "I/O2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "4"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 0 6.35 270)
+				(length 2.54)
+				(name "VBUS"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "5"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 0 -6.35 90)
+				(length 2.54)
+				(name "GND"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
 	)
 	(symbol "USB_C_Receptacle_USB2.0_16P"
 		(pin_names

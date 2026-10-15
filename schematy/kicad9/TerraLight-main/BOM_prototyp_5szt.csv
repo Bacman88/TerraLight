@@ -1,0 +1,34 @@
+Oznaczenia;Wartość;Numer producenta (MPN);Footprint;Szt./płytkę;Na 5 płytek;Kupić (z zapasem);Uwagi
+J1;USB-C 16P ≥3A;HRO TYPE-C-31-M-12;USB_C_Receptacle_HRO_TYPE-C-31-M-12;1;5;6;[do sprawdzenia] min. 3 A, zaczepy THT
+U3;USBLC6-2SC6;ST USBLC6-2SC6;SOT-23-6;1;5;6;prowadzenie przelotowe: złącze → pad 1/3 → pad 6/4 → ESP
+D1;SMF5.0A;Littelfuse SMF5.0A;D_SOD-123F;1;5;6;[do doboru] TVS 5 V jednokier.
+C1, C6, C11;10µF;Samsung CL21A106KAYNNNE;C_0805_2012Metric;3;15;25;
+C2, C7;100µF;[100 µF ≥10 V, SMD Ø6,3 mm];CP_Elec_6.3x7.7;2;10;12;
+R3, R5, R7;100k 1%;Yageo RC0805FR-07100KL;R_0805_2012Metric;3;15;25;
+R4;47k 1%;Yageo RC0805FR-0747KL;R_0805_2012Metric;1;5;20;
+C3, C8, C12;100nF;Samsung CL21B104KBCNNNC;C_0805_2012Metric;3;15;25;
+R1, R2;5.1k 1%;Yageo RC0805FR-075K1L;R_0805_2012Metric;2;10;20;
+R9, R10, R11, R15;1k;Yageo RC0805FR-071KL;R_0805_2012Metric;4;20;30;
+F1;PTC 3A hold;Bourns MF-MSMF300-2 [lub inny PTC 1812, 3 A hold, ≥6 V];Fuse_1812_4532Metric;1;5;6;[do doboru] PTC 1812, ~3 A hold, ≥6 V
+Q1;P-MOSFET ≤30mΩ;Vishay Si2333DDS [sprawdzić RDS(on) i pinout];SOT-23;1;5;6;"[do doboru] RDS(on) ≤30 mΩ @ −4,5 V; sprawdzić pinout SOT-23"
+C4;22nF;Samsung CL21B223KBANNNC;C_0805_2012Metric;1;5;20;[dobrać na prototypie] miękki start
+R6, R12, R16, R14, R13;10k;Yageo RC0805FR-0710KL;R_0805_2012Metric;5;25;35;
+Q2;2N7002;2N7002;SOT-23;1;5;6;
+C5;1000µF 10V low-ESR;[1000 µF 10 V low-ESR, SMD Ø10 mm];CP_Elec_10x10.5;1;5;6;lub 2× 470 µF
+J2;LED OUT (JST-VH 3p);JST S3P-VH(LF)(SN);JST_VH_S3P-VH_1x03_P3.96mm_Horizontal;1;5;6;"JST S3P-VH (kątowe, kabel z krawędzi płytki); 1=+5V 2=DATA 3=GND [potwierdzić]; kabel VH→JST-SM żeński"
+U1;74AHCT1G125;TI SN74AHCT1G125DBVR;SOT-23-5;1;5;6;zasilany z przełączanej linii LED
+R8;330;Yageo RC0805FR-07330RL;R_0805_2012Metric;1;5;20;
+D2;ESD 5V;Nexperia PESD5V0S1BA;D_SOD-323;1;5;6;[do doboru] ESD 5 V
+D3;SS14;SS14;D_SMA;1;5;6;
+C9, C10, C13;1µF;Samsung CL21B105KAFNNNE;C_0805_2012Metric;3;15;25;
+U4;AP2112K-3.3;Diodes AP2112K-3.3TRG1;SOT-23-5;1;5;6;[do doboru] LDO ≥500 mA (JLC basic)
+U5;ESP32-C3-MINI-1-N4;Espressif ESP32-C3-MINI-1-N4;ESP32-C3-MINI-1;1;5;6;"antena wbudowana; strefa bez miedzi wg karty"
+SW2, SW1;RESET;E-Switch TL3342 [sprawdzić wariant];SW_SPST_TL3342;2;10;12;
+LED1;STATUS;[LED 0805, dowolny kolor];LED_0805_2012Metric;1;5;6;
+F2;PTC 0.1A hold;Littelfuse 0805L010;Fuse_0805_2012Metric;1;5;6;[do doboru]
+R17, R18, R19, R20;100;Yageo RC0805FR-07100RL;R_0805_2012Metric;4;20;30;
+R21, R22, R23, R24;4.7k;Yageo RC0805FR-074K7L;R_0805_2012Metric;2;10;20;I²C — domyślnie DNP
+U2;SRV05-4;Semtech SRV05-4;SOT-23-6;1;5;6;[do doboru] matryca ESD 4 kanały
+J3;SENSOR (JST-GH 6p);JST SM06B-GHS-TB(LF)(SN);JST_GH_SM06B-GHS-TB_1x06-1MP_P1.25mm_Horizontal;1;5;6;
+J4;PROG UART (pady);[listwa 1×6 2,54 mm — opcjonalnie];PinHeader_1x06_P2.54mm_Vertical;0;0;0;DNP — nie montować. awaryjne programowanie: 2=TXD0 3=RXD0
+J5;Rezerwa (pady);[listwa 1×4 2,54 mm — opcjonalnie];PinHeader_1x04_P2.54mm_Vertical;0;0;0;DNP — nie montować. 

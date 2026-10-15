@@ -8,6 +8,7 @@ Schemat według [docs/PCB.md](../../../docs/PCB.md) (v0.2, 2026-10-15). Otwórz 
 | `TerraLight-main.kicad_sch` | schemat, jeden arkusz A3, 6 bloków jak w PCB.md |
 | `TerraLight.kicad_sym` | biblioteka symboli projektu (podpięta przez `sym-lib-table`) |
 | `TerraLight.pretty/` | footprint ESP32-C3-MINI-1 (Espressif, CC-BY-SA 4.0) |
+| `BOM_prototyp_5szt.csv` | lista zakupów na 5 płytek: numery producentów (MPN) do wyszukania w TME / LCSC / Mouser, ilości z zapasem |
 
 Projekt nie wymaga dodatkowych bibliotek symboli. Footprinty poza modułem ESP32 pochodzą ze standardowych bibliotek KiCad.
 Model 3D modułu ESP32 jest dostępny po zainstalowaniu biblioteki Espressif z menedżera wtyczek (PCM) KiCad.
@@ -40,14 +41,15 @@ Elementy w PCB.md oznaczone **[do doboru]** mają na schemacie typowe wartości 
 | D2 | dioda ESD 5 V, SOD-323 | |
 | U4 | AP2112K-3.3 | LDO z listy „basic” JLCPCB |
 | SW1, SW2 | footprint SW_SPST_TL3342 | dopasować do przycisków dostępnych w JLCPCB i obudowy |
-| Pasywne | 0402 (10 µF: 0805) | |
+| Pasywne | **0805** (decyzja 2026-10-15: prototypy lutujemy sami — pasta + hot air / lutownica) | |
 
 Pozostałe decyzje projektowe:
 - **USB D+/D-:** jedna sieć `USB_DP` / `USB_DN` od złącza przez USBLC6-2 (pady 1↔6, 3↔4) do ESP. Na PCB ścieżka przechodzi kolejno przez pady.
 - **Pull-upy DATA1/DATA2** (4,7 kΩ) do `3V3_SENSOR` (za bezpiecznikiem F2), po stronie złącza. Rezystory 100 Ω szeregowo od strony ESP.
 - **Pady programowania** J4 (3V3, TXD0, RXD0/LED_PWR_EN, BOOT, EN, GND) i **pady rezerwowe** J5 (3V3, GPIO2, GPIO21, GND) jako footprint listwy 2,54 mm, oznaczone DNP (bez wlutowanej listwy).
 - **PWR_FLAG** na sieciach VBUS, +5V_LED, VLDO_IN, 3V3_SENSOR i GND — dla ERC.
-- Kody LCSC nie są jeszcze przypisane. Przy wyborze preferować części „basic” JLCPCB (PCB.md, koszt).
+- Każdy element ma pole **MPN** (numer producenta). Pozycje w nawiasach [ ] to specyfikacja do dobrania. Kody sklepów (TME/LCSC) nie są przypisane — wyszukiwać po MPN.
+- **Prototypy (5 szt.) montujemy sami**, wszystko SMD: pasta przez szablon + hot air (ESP, USB-C), resztę można lutownicą. Kolejność: najpierw SMD, na końcu przewlekane (JST-VH).
 
 ## Następne kroki
 1. ERC i przegląd schematu w KiCad.

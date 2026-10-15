@@ -18,5 +18,11 @@ Kod będzie bazował na wcześniejszym WeatherLight: https://github.com/Bacman88
 ## Sensor PRO — przyszłość
 Własny ESP32 i zasilanie, czujniki temperatury/wilgotności, sterowanie zewnętrznymi elementami wykonawczymi (ogrzewanie, wentylacja, zraszanie, światło); bezpieczne stany autonomiczne. ESP-NOW do łączności z TerraLight; jednoczesne Wi-Fi+ESP-NOW przy tym samym kanale, wymagane ponowne odnajdywanie przy zmianach kanału routera.
 
+Minimum: **dwa wyjścia** (przekaźnik / SSR, 230 V tylko na module PRO, nigdy na PCB TerraLight):
+- **Grzanie** — termostat wg czujnika (DHT22 / DS18B20 pod lampą), osobne progi dzień / noc, twardy limit za gorąco.
+- **Lampa UVB / nocna** — dla gadów, które tego wymagają: w dzień UVB włączane i wyłączane przez harmonogram TerraLight (koniec świtu → początek zmierzchu, patrz FIRMWARE.md „Współpraca z lampą główną”), albo w nocy lampa nocna / grzewcza bez światła widzialnego.
+
+Przy utracie łączności z TerraLight moduł pracuje na ostatnim znanym harmonogramie z własnego zegara; grzanie zawsze ograniczone własnym czujnikiem.
+
 ## Hub — opcjonalnie
 Zarządzanie wieloma TerraLight i Sensor PRO. Nie stanowi zależności dla podstawowej funkcjonalności.

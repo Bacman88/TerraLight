@@ -23,6 +23,7 @@ Liczba LED, typ układu (WS2812B / WS2811), kolejność kolorów (domyślnie **R
   - astronomiczny — rzeczywisty wschód i zachód dla **lokalizacji biotopu** (szerokość i długość geograficzna, niezależne od miejsca instalacji; strefa czasowa pozostaje domowa). wyliczane **lokalnie** (bez internetu, dokładność ±1–2 min),
   - długość świtu i zmierzchu, przesunięcie względem słońca, minimalna i maksymalna długość dnia.
 - **Sezonowość / zimowanie:** płynne skracanie dnia i obniżanie jasności w wybranym okresie (europejskie mrówki, część agam). W trybie astronomicznym zmiana pór roku wynika z lokalizacji biotopu.
+- **Współpraca z lampą główną (UVB / świetlówka) — opcja, domyślnie wyłączona:** TerraLight montowany wzdłuż lampy UVB daje tylko świt i zmierzch, a na czas pełnego dnia (jasna barwa) płynnie się wygasza, bo świeci już lampa. Noc działa bez zmian. TerraLight nie wie, kiedy lampa się włącza, dlatego użytkownik ustawia jej zegar tak, aby godziny pokrywały się z końcem świtu i początkiem zmierzchu (panel pokazuje te godziny). Najprościej przy harmonogramie o **stałych godzinach**: godziny się nie zmieniają, więc zegar lampy ustawia się raz. Przy harmonogramie astronomicznym godziny przesuwają się z dnia na dzień, a zegar lampy trzeba co jakiś czas poprawiać. Wygaszanie i rozjaśnianie wokół tych chwil ok. 1–5 min (ustawiane), żeby przejście lampa ↔ LED było mniej widoczne. Opcjonalnie z modułem **Sensor PRO** (ROADMAP.md) lampę włącza i wyłącza sam TerraLight, także przy harmonogramie astronomicznym. Ręczne ustawienie zegara lampy pozostaje pełnoprawną opcją.
 
 ### 2. Światło dzienne — co świeci
 **A. Stałe:** kolor, jasność, gęstość (wszystkie / co 2. / co N-ta dioda).
@@ -51,6 +52,7 @@ Osobny profil dla akwarium — tania alternatywa dla sterowników oświetlenia z
 **Harmonogram**
 - **Sjesta:** przygaszenie światła w środku dnia na ustawiony czas (ograniczanie glonów w akwariach roślinnych).
 - Domyślnie dłuższy świt i zmierzch niż w Terra — ryby nie mają powiek; nagłe zapalenie światła płoszy je i grozi uderzeniem o szybę.
+- **Współpraca z lampą główną** — jak w Terra (sekcja „Sterowanie”): TerraLight daje świt, zmierzch i noc, a na pełny dzień płynnie się wygasza, bo świeci lampa akwariowa (LED / świetlówka dla roślin). Godziny lampy ustawiane na jej zegarze wg panelu, docelowo przełączane przez Sensor PRO. Sjesta w tej opcji dotyczy lampy, nie TerraLight.
 
 **Noc:** niebieska poświata księżyca, rzeczywiste fazy księżyca, wyłączone.
 

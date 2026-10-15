@@ -1,0 +1,69 @@
+{
+  "editorVersion": "6.5.51",
+  "docType": "5",
+  "title": "TerraLight Minimal Breadboard Pixel Boost DRAFT",
+  "description": "Editable logical schematic. Needs EasyEDA import and physical pinout verification.",
+  "colors": {},
+  "schematics": [
+    {
+      "docType": "1",
+      "title": "Minimal ESP32+PixelBoost+LED",
+      "description": "Prototype",
+      "dataStr": {
+        "head": {
+          "docType": "1",
+          "editorVersion": "6.5.51",
+          "newgId": true,
+          "c_para": {
+            "Prefix Start": "1"
+          },
+          "c_spiceCmd": "null",
+          "hasIdFlag": true,
+          "uuid": "7f24234f51684b3794584f0354890003",
+          "x": "0",
+          "y": "0",
+          "portOfADImportHack": "",
+          "importFlag": 0,
+          "transformList": ""
+        },
+        "canvas": "CA~1200~900~#FFFFFF~yes~#CCCCCC~5~1200~900~line~5~pixel~5~0~0",
+        "shape": [
+          "LIB~80~110~package`NONE`spicePre`U`~~0~gge107~~~0~~yes~yes~~#@$R~80~110~~~175~85~#880000~1~0~none~gge101~0#@$T~L~85~95~0~#000080~Arial~10pt~~~~comment~ESP32-C3 SuperMini - LOGICAL~1~start~gge102~0#@$T~L~85~106~0~#000080~Arial~9pt~~~~comment~U1~1~start~gge103~0#@$P~show~0~1~60~130~0~gge104~0^^60~130^^M 60 130 L 80 130~#880000^^1~83~127~0~5V~start~Arial~9pt~#0000FF^^1~65~133~0~1~start~Arial~8pt~#0000FF^^0~60~130^^0~M 0 0#@$P~show~0~2~60~150~0~gge105~0^^60~150^^M 60 150 L 80 150~#880000^^1~83~147~0~GND~start~Arial~9pt~#0000FF^^1~65~153~0~2~start~Arial~8pt~#0000FF^^0~60~150^^0~M 0 0#@$P~show~0~3~275~170~180~gge106~0^^275~170^^M 275 170 L 255 170~#880000^^1~252~167~0~GPIO4~end~Arial~9pt~#0000FF^^1~280~173~0~3~start~Arial~8pt~#0000FF^^0~275~170^^0~M 0 0",
+          "LIB~360~110~package`NONE`spicePre`U`~~0~gge115~~~0~~yes~yes~~#@$R~360~110~~~160~100~#880000~1~0~none~gge108~0#@$T~L~365~95~0~#000080~Arial~10pt~~~~comment~Pixel Boost - HCT/AHCT 5V~1~start~gge109~0#@$T~L~365~106~0~#000080~Arial~9pt~~~~comment~U2~1~start~gge110~0#@$P~show~0~1~340~130~0~gge111~0^^340~130^^M 340 130 L 360 130~#880000^^1~363~127~0~5V~start~Arial~9pt~#0000FF^^1~345~133~0~1~start~Arial~8pt~#0000FF^^0~340~130^^0~M 0 0#@$P~show~0~2~340~150~0~gge112~0^^340~150^^M 340 150 L 360 150~#880000^^1~363~147~0~GND~start~Arial~9pt~#0000FF^^1~345~153~0~2~start~Arial~8pt~#0000FF^^0~340~150^^0~M 0 0#@$P~show~0~3~340~170~0~gge113~0^^340~170^^M 340 170 L 360 170~#880000^^1~363~167~0~DIN~start~Arial~9pt~#0000FF^^1~345~173~0~3~start~Arial~8pt~#0000FF^^0~340~170^^0~M 0 0#@$P~show~0~4~540~170~180~gge114~0^^540~170^^M 540 170 L 520 170~#880000^^1~517~167~0~DOUT~end~Arial~9pt~#0000FF^^1~545~173~0~4~start~Arial~8pt~#0000FF^^0~540~170^^0~M 0 0",
+          "LIB~640~110~package`NONE`spicePre`U`~~0~gge122~~~0~~yes~yes~~#@$R~640~110~~~160~95~#880000~1~0~none~gge116~0#@$T~L~645~95~0~#000080~Arial~10pt~~~~comment~LED module 6x WS2812B 5V~1~start~gge117~0#@$T~L~645~106~0~#000080~Arial~9pt~~~~comment~J1~1~start~gge118~0#@$P~show~0~1~620~130~0~gge119~0^^620~130^^M 620 130 L 640 130~#880000^^1~643~127~0~+5V~start~Arial~9pt~#0000FF^^1~625~133~0~1~start~Arial~8pt~#0000FF^^0~620~130^^0~M 0 0#@$P~show~0~2~620~150~0~gge120~0^^620~150^^M 620 150 L 640 150~#880000^^1~643~147~0~DIN~start~Arial~9pt~#0000FF^^1~625~153~0~2~start~Arial~8pt~#0000FF^^0~620~150^^0~M 0 0#@$P~show~0~3~620~170~0~gge121~0^^620~170^^M 620 170 L 640 170~#880000^^1~643~167~0~GND~start~Arial~9pt~#0000FF^^1~625~173~0~3~start~Arial~8pt~#0000FF^^0~620~170^^0~M 0 0",
+          "LIB~540~245~package`NONE`spicePre`U`~~0~gge128~~~0~~yes~yes~~#@$R~540~245~~~110~50~#880000~1~0~none~gge123~0#@$T~L~545~230~0~#000080~Arial~10pt~~~~comment~330 ohm DATA series~1~start~gge124~0#@$T~L~545~241~0~#000080~Arial~9pt~~~~comment~R1~1~start~gge125~0#@$P~show~0~1~520~270~0~gge126~0^^520~270^^M 520 270 L 540 270~#880000^^1~543~267~0~IN~start~Arial~9pt~#0000FF^^1~525~273~0~1~start~Arial~8pt~#0000FF^^0~520~270^^0~M 0 0#@$P~show~0~2~670~270~180~gge127~0^^670~270^^M 670 270 L 650 270~#880000^^1~647~267~0~OUT~end~Arial~9pt~#0000FF^^1~675~273~0~2~start~Arial~8pt~#0000FF^^0~670~270^^0~M 0 0",
+          "LIB~145~255~package`NONE`spicePre`U`~~0~gge134~~~0~~yes~yes~~#@$R~145~255~~~175~55~#880000~1~0~none~gge129~0#@$T~L~150~240~0~#000080~Arial~10pt~~~~comment~470-1000uF electrolytic~1~start~gge130~0#@$T~L~150~251~0~#000080~Arial~9pt~~~~comment~C1~1~start~gge131~0#@$P~show~0~1~125~275~0~gge132~0^^125~275^^M 125 275 L 145 275~#880000^^1~148~272~0~PLUS~start~Arial~9pt~#0000FF^^1~130~278~0~1~start~Arial~8pt~#0000FF^^0~125~275^^0~M 0 0#@$P~show~0~2~125~295~0~gge133~0^^125~295^^M 125 295 L 145 295~#880000^^1~148~292~0~MINUS~start~Arial~9pt~#0000FF^^1~130~298~0~2~start~Arial~8pt~#0000FF^^0~125~295^^0~M 0 0",
+          "LIB~370~255~package`NONE`spicePre`U`~~0~gge140~~~0~~yes~yes~~#@$R~370~255~~~155~55~#880000~1~0~none~gge135~0#@$T~L~375~240~0~#000080~Arial~10pt~~~~comment~100nF ceramic at booster~1~start~gge136~0#@$T~L~375~251~0~#000080~Arial~9pt~~~~comment~C2~1~start~gge137~0#@$P~show~0~1~350~275~0~gge138~0^^350~275^^M 350 275 L 370 275~#880000^^1~373~272~0~VCC~start~Arial~9pt~#0000FF^^1~355~278~0~1~start~Arial~8pt~#0000FF^^0~350~275^^0~M 0 0#@$P~show~0~2~350~295~0~gge139~0^^350~295^^M 350 295 L 370 295~#880000^^1~373~292~0~GND~start~Arial~9pt~#0000FF^^1~355~298~0~2~start~Arial~8pt~#0000FF^^0~350~295^^0~M 0 0",
+          "N~60~130~0~#0000AA~+5V~gge141~start~63~122~Arial~9pt~0",
+          "N~60~150~0~#0000AA~GND~gge142~start~63~142~Arial~9pt~0",
+          "N~275~170~0~#0000AA~DATA_3V3~gge143~start~278~162~Arial~9pt~0",
+          "N~340~130~0~#0000AA~+5V~gge144~start~343~122~Arial~9pt~0",
+          "N~340~150~0~#0000AA~GND~gge145~start~343~142~Arial~9pt~0",
+          "N~340~170~0~#0000AA~DATA_3V3~gge146~start~343~162~Arial~9pt~0",
+          "N~540~170~0~#0000AA~DATA_5V~gge147~start~543~162~Arial~9pt~0",
+          "N~620~130~0~#0000AA~+5V~gge148~start~623~122~Arial~9pt~0",
+          "N~620~150~0~#0000AA~LED_DIN~gge149~start~623~142~Arial~9pt~0",
+          "N~620~170~0~#0000AA~GND~gge150~start~623~162~Arial~9pt~0",
+          "N~520~270~0~#0000AA~DATA_5V~gge151~start~523~262~Arial~9pt~0",
+          "N~670~270~0~#0000AA~LED_DIN~gge152~start~673~262~Arial~9pt~0",
+          "N~125~275~0~#0000AA~+5V~gge153~start~128~267~Arial~9pt~0",
+          "N~125~295~0~#0000AA~GND~gge154~start~128~287~Arial~9pt~0",
+          "N~350~275~0~#0000AA~+5V~gge155~start~353~267~Arial~9pt~0",
+          "N~350~295~0~#0000AA~GND~gge156~start~353~287~Arial~9pt~0",
+          "T~L~80~45~0~#000080~Arial~16pt~~~~comment~TerraLight - EasyEDA Standard: minimalist prototype 6 LEDs (DRAFT)~1~start~gge157~0",
+          "T~L~80~65~0~#000080~Arial~10pt~~~~comment~GPIO4 > 5V HCT buffer > 330 ohm > LED DIN | ALL GROUNDS COMMON~1~start~gge158~0",
+          "T~L~80~340~0~#000080~Arial~10pt~~~~comment~IMPORTANT: Pixel Boost needs 5V power and GND. Check actual module's pinout.~1~start~gge159~0",
+          "T~L~80~360~0~#000080~Arial~10pt~~~~comment~Prototype only. Verify USB VBUS current capacity on SuperMini and LED polarity.~1~start~gge160~0",
+          "T~L~80~380~0~#000080~Arial~10pt~~~~comment~Symbols are logical placeholders. NOT READY FOR PCB OR FABRICATION.~1~start~gge161~0"
+        ],
+        "BBox": {
+          "x": 0,
+          "y": 0,
+          "width": 1000,
+          "height": 450
+        },
+        "colors": {}
+      }
+    }
+  ]
+}
